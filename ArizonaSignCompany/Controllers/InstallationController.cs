@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,9 +17,12 @@ namespace ArizonaSignCompany.Controllers
         private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
 
         // GET: Installation
+        [ChildActionOnly]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.Requests.ToList());
+            var requestType = RequestType.installation.ToString();
+            return PartialView(db.Requests.Where(r => r.Type == requestType));
         }
 
         // GET: Installation/Details/5
@@ -37,6 +41,7 @@ namespace ArizonaSignCompany.Controllers
         }
 
         // GET: Installation/Create
+        [AllowAnonymous]
         public ActionResult Create()
         {
             return View();
@@ -46,24 +51,34 @@ namespace ArizonaSignCompany.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(InstallationViewModel installation)
+        public async Task<ActionResult> Create(InstallationViewModel installation, HttpPostedFileBase upload)
         {
-
-            if (ModelState.IsValid)
+            var isValid = ModelState.IsValid;
+            if(upload == null || upload.ContentLength == 0)
             {
-
+                isValid = false;
+                ModelState.AddModelError(null, "Please upload a valid file");
+            }
+            if (isValid)
+            {
 
                 var installationRequest = new Request
                 {
                     Request_number = installation.Request_number,
-                    attachment = installation.attachment,
-                    contact = installation.contact
-                };
-
-                db.Requests.Add(installationRequest);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    contact = installation.contact,
+                    Type = RequestType.installation.ToString()
+                };              
+              
+                    var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
+                    var filepath = Server.MapPath("~/UserUploads");
+                    var folderpath = Path.Combine(filepath, filename);
+                    upload.SaveAs(folderpath);
+                    installationRequest.attachment = filename;           
+                    db.Requests.Add(installationRequest);
+                    db.SaveChanges(); 
+                    return RedirectToAction("Create","Installation");
             }
 
             return View(installation);

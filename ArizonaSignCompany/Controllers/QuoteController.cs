@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,9 +17,12 @@ namespace ArizonaSignCompany.Controllers
         private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
 
         // GET: Quote
+        [ChildActionOnly]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.Requests.ToList());
+            var requestType = RequestType.quote.ToString();
+            return PartialView(db.Requests.Where(r => r.Type == requestType));
         }
 
         // GET: Quote/Details/5
@@ -46,24 +50,36 @@ namespace ArizonaSignCompany.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(QuoteViewModel quote)
+        public async Task<ActionResult> Create(QuoteViewModel quote, HttpPostedFileBase upload)
         {
-
-            if (ModelState.IsValid)
+            var isValid = ModelState.IsValid;
+            if (upload == null || upload.ContentLength == 0)
             {
-
-
-                var repairRequest = new Request
+                isValid = false;
+                
+                    ModelState.AddModelError(null, "Invalid file type. Please select another file.");
+                                
+            }
+            if (isValid)
+            {
+                var quoteRequest = new Request
                 {
                     Request_number = quote.Request_number,
-                    attachment = quote.attachment,
-                    contact = quote.contact
+                    contact = quote.contact,
+                    Type = RequestType.quote.ToString()
                 };
 
-                db.Requests.Add(repairRequest);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
+                    var filepath = Server.MapPath("~/UserUploads");
+                    var folderpath = Path.Combine(filepath, filename);
+                    upload.SaveAs(folderpath);
+                    quoteRequest.attachment = filename;
+                    db.Requests.Add(quoteRequest);
+                    db.SaveChanges();
+                    return RedirectToAction("Create", "Quote");
+
             }
 
             return View(quote);

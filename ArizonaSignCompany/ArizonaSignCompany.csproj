@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstallationController.cs" />
     <Compile Include="Controllers\LiftScheduleController.cs" />
@@ -177,26 +178,13 @@
     <Compile Include="Controllers\QuoteController.cs" />
     <Compile Include="Controllers\RepairRequestsController.cs" />
     <Compile Include="Controllers\RequestForinformationController.cs" />
+    <Compile Include="Controllers\ServiceRequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AspNetRole.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUser.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserClaim.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\AspNetUserLogin.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\RequestType.cs" />
     <Compile Include="Models\Customer_Information.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\C__MigrationHistory.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
@@ -230,6 +218,7 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\RequestForInformationViewModel.cs" />
+    <Compile Include="Models\ServiceRequestViewModel.cs" />
     <Compile Include="Models\Service_Request.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -349,9 +338,24 @@
     <Content Include="Views\Installation\Details.cshtml" />
     <Content Include="Views\Installation\Edit.cshtml" />
     <Content Include="Views\Installation\Index.cshtml" />
+    <Content Include="Views\Account\RegistrationPending.cshtml" />
+    <Content Include="Views\Dashboard\AccountApproval.cshtml" />
+    <Content Include="Views\Dashboard\ApproveAccount.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\ServiceRequest\Create.cshtml" />
+    <Content Include="Views\ServiceRequest\Delete.cshtml" />
+    <Content Include="Views\ServiceRequest\Details.cshtml" />
+    <Content Include="Views\ServiceRequest\Edit.cshtml" />
+    <Content Include="Views\ServiceRequest\Index.cshtml" />
+    <Content Include="Views\ServiceRequestViewModel\Create.cshtml" />
+    <Content Include="Views\ServiceRequestViewModel\Delete.cshtml" />
+    <Content Include="Views\ServiceRequestViewModel\Details.cshtml" />
+    <Content Include="Views\ServiceRequestViewModel\Edit.cshtml" />
+    <Content Include="Views\ServiceRequestViewModel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserUploads\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

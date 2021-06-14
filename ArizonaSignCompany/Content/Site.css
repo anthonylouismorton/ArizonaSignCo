@@ -25,3 +25,8 @@ textarea {
 div#bs-example-navbar-collapse-1 {
     padding-left: 300px;
 }
+
+nav
+{
+    clear: both;
+}

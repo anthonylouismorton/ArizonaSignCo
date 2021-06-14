@@ -31,6 +31,7 @@ namespace ArizonaSignCompany.Models
         public string Phone { get; set; }
         public string Email { get; set; }
         public string Customer_ID { get; set; }
+        public bool isApproved { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lift_Schedule> Lift_Schedule { get; set; }

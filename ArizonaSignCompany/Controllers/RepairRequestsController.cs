@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,9 +17,12 @@ namespace ArizonaSignCompany.Controllers
         private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
 
         // GET: RepairRequests
+        [ChildActionOnly]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.Requests.ToList());
+            var requestType = RequestType.repair.ToString();
+            return PartialView(db.Requests.Where(r => r.Type == requestType));
         }
 
         // GET: RepairRequests/Details/5
@@ -49,34 +53,41 @@ namespace ArizonaSignCompany.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RepairRequestViewModels request)
+        public async Task<ActionResult> Create(RepairRequestViewModels repair, HttpPostedFileBase upload)
         {
-            
-            if (ModelState.IsValid)
+
+            var isValid = ModelState.IsValid;
+            if (upload == null || upload.ContentLength == 0)
+            {
+                isValid = false;
+                ModelState.AddModelError(null, "Please upload a valid file");
+            }
+            if (isValid)
             {
 
-                
                 var repairRequest = new Request
                 {
-                    first_name = request.first_name,
-                    last_name = request.last_name,
-                    description = request.description,
-                    attachment = request.attachment,                   
-                    contact = request.contact,
-                    location = request.location,
-                    company = request.company,
-                    Request_number = request.Request_number
+                    first_name = repair.first_name,
+                    last_name = repair.last_name,
+                    description = repair.description,                  
+                    contact = repair.contact,
+                    location = repair.location,
+                    company = repair.company,
+                    Request_number = repair.Request_number,
+                    Type = RequestType.repair.ToString()
                     
-                    
-
-
                 };
-                db.Requests.Add(repairRequest);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                    var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
+                    var filepath = Server.MapPath("~/UserUploads");
+                    var folderpath = Path.Combine(filepath, filename);
+                    upload.SaveAs(folderpath);
+                    repairRequest.attachment = filename;
+                    db.Requests.Add(repairRequest);
+                    db.SaveChanges();
+                    return RedirectToAction("Create", "RepairRequests");
             }
 
-            return View(request);
+            return View(repair);
         }
 
         // GET: RepairRequests/Edit/5
@@ -122,7 +133,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 return HttpNotFound();
             }
-            return View(request);
+            return PartialView(request);
         }
 
         // POST: RepairRequests/Delete/5

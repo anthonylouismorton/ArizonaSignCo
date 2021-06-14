@@ -17,10 +17,11 @@ namespace ArizonaSignCompany.Controllers
         private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
 
         // GET: LiftSchedule
+        [ChildActionOnly]
         public ActionResult Index()
         {
             var lift_Schedule = db.Lift_Schedule.Include(l => l.Customer_Information);
-            return View(lift_Schedule.ToList());
+            return PartialView(lift_Schedule.ToList());
         }
 
         // GET: LiftSchedule/Details/5
@@ -67,7 +68,7 @@ namespace ArizonaSignCompany.Controllers
                 };
                 db.Lift_Schedule.Add(scheduleLift);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create","LiftSchedule");
             }
 
             ViewBag.Customer_ID = new SelectList(db.Customer_Information, "Customer_ID", "LastName", schedule.Customer_ID);

@@ -16,9 +16,12 @@ namespace ArizonaSignCompany.Controllers
         private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
 
         // GET: RequestForinformation
+        [ChildActionOnly]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.Requests.ToList());
+            var requestType = RequestType.information.ToString();
+            return PartialView(db.Requests.Where(r => r.Type == requestType));
         }
 
         // GET: RequestForinformation/Details/5
@@ -47,34 +50,40 @@ namespace ArizonaSignCompany.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RepairRequestViewModels request)
+        public async Task<ActionResult> Create(RepairRequestViewModels information, HttpPostedFileBase upload)
         {
 
-            if (ModelState.IsValid)
+            var isValid = ModelState.IsValid;
+            if (upload == null || upload.ContentLength == 0)
+            {
+                isValid = false;
+                ModelState.AddModelError(null, "Please upload a valid file");
+            }
+            if (isValid)
             {
 
 
-                var repairRequest = new Request
+                var informationRequest = new Request
                 {
-                    first_name = request.first_name,
-                    last_name = request.last_name,
-                    description = request.description,
-                    attachment = request.attachment,
-                    contact = request.contact,
-                    location = request.location,
-                    company = request.company,
-                    Request_number = request.Request_number
-
+                    first_name = information.first_name,
+                    last_name = information.last_name,
+                    description = information.description,
+                    attachment = information.attachment,
+                    contact = information.contact,
+                    location = information.location,
+                    company = information.company,
+                    Request_number = information.Request_number,
+                    Type = RequestType.information.ToString()
 
 
 
                 };
-                db.Requests.Add(repairRequest);
+                db.Requests.Add(informationRequest);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Create", "RequestForinformation");
             }
 
-            return View(request);
+            return View(information);
         }
 
         // GET: RequestForinformation/Edit/5

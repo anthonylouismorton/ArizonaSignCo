@@ -35,6 +35,6 @@ namespace ArizonaSignCompany.Models
 
 
         [Display(Name = "Attachment")]
-        public byte[] attachment { get; set; }
+        public string attachment { get; set; }
     }
 }

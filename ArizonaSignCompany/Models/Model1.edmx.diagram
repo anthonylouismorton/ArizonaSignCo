@@ -5,22 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9a90fb442498489fb273d25c3034e50f" Name="Diagram1" ZoomLevel="99">
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.C__MigrationHistory" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.AspNetRole" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.AspNetUserClaim" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.AspNetUserLogin" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.AspNetUser" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
-        <AssociationConnector Association="ArizonaSignCompanyModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="ArizonaSignCompanyModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
-        <AssociationConnector Association="ArizonaSignCompanyModel.AspNetUserRoles" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.Request" Width="1.5" PointX="0.75" PointY="6.25" />
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.Customer_Information" Width="1.5" PointX="7.375" PointY="2.5" />
         <EntityTypeShape EntityType="ArizonaSignCompanyModel.Lift_Schedule" Width="1.5" PointX="9.625" PointY="6.625" />
         <EntityTypeShape EntityType="ArizonaSignCompanyModel.LU_Contact_Method" Width="1.5" PointX="7.375" PointY="9.375" />
         <EntityTypeShape EntityType="ArizonaSignCompanyModel.Service_Request" Width="1.5" PointX="9.625" PointY="2.625" />
+        <AssociationConnector Association="ArizonaSignCompanyModel.FK__Service_R__Conta__45F365D3" />
+        <EntityTypeShape EntityType="ArizonaSignCompanyModel.Customer_Information" Width="1.5" PointX="2.5" PointY="1.75" />
         <AssociationConnector Association="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" />
         <AssociationConnector Association="ArizonaSignCompanyModel.FK__Service_R__Custo__4316F928" />
-        <AssociationConnector Association="ArizonaSignCompanyModel.FK__Service_R__Conta__45F365D3" />
+        <EntityTypeShape EntityType="ArizonaSignCompanyModel.Request" Width="1.5" PointX="5.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

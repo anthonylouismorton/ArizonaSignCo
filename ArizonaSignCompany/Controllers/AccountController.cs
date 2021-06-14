@@ -79,6 +79,16 @@ namespace ArizonaSignCompany.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    using (var db = new ArizonaSignCompanyEntities())
+                    {
+                        var customer = db.Customer_Information.SingleOrDefault(c => c.Email == model.Email);
+                        if(customer == null || !customer.isApproved)
+                        {
+                            SignInManager.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                            return RedirectToAction("RegistrationPending", "Account");
+                        }
+                        
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -157,8 +167,8 @@ namespace ArizonaSignCompany.Controllers
                 {
                     var customer = new Customer_Information
                     {
-                        
-                        Email = model.Email,                        
+
+                        Email = model.Email,
                         FirstName = model.FirstName,
                         LastName = model.LastName,
                         Customer_ID = user.Id,
@@ -167,7 +177,9 @@ namespace ArizonaSignCompany.Controllers
                         Company = model.Company,
                         Phone = model.Phone,
                         State = model.State,
-                        Zip = (int)model.Zip
+                        Zip = (int)model.Zip,
+                        isApproved = false
+                        
                         
                         
                     };
@@ -185,7 +197,7 @@ namespace ArizonaSignCompany.Controllers
                         }*/
                     }
 
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -193,7 +205,7 @@ namespace ArizonaSignCompany.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("RegistrationPending", "Account");
                 }
                 AddErrors(result);
             }
@@ -511,5 +523,10 @@ namespace ArizonaSignCompany.Controllers
             }
         }
         #endregion
+        [AllowAnonymous]
+        public ActionResult RegistrationPending()
+        {
+            return View();
+        }
     }
 }

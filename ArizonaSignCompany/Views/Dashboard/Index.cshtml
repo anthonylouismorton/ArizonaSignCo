@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+
+    
+    <h3>@ViewBag.Message</h3>
+
+    
+
+<div class="approvals">
+    @Html.Action("AccountApproval","Dashboard")
+</div>
+
+<div class="installations">
+    @Html.Action("Index", "Installation")
+</div>
+
+<div class="liftschedule">
+    @Html.Action("Index", "LiftSchedule")
+</div>
+
+<div class="quote">
+    @Html.Action("Index", "Quote")
+</div>
+
+<div class="repairRequest">
+    @Html.Action("Index", "RepairRequests")
+</div>
+
+<div class="requestForInformation">
+    @Html.Action("Index", "RequestForInformation")
+</div>

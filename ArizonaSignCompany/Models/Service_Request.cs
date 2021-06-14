@@ -23,7 +23,7 @@ namespace ArizonaSignCompany.Models
         public Nullable<int> Contact_ID { get; set; }
         public int Request_ID { get; set; }
     
-        public virtual Customer_Information Customer_Information { get; set; }
         public virtual LU_Contact_Method LU_Contact_Method { get; set; }
+        public virtual Customer_Information Customer_Information { get; set; }
     }
 }

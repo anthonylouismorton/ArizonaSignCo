@@ -32,28 +32,31 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Quote", "Create", "Quote")</li>
                             <li>@Html.ActionLink("Sign Installation", "Create", "Installation")</li>
-                            <li><a href="#">Service Request</a></li>
+                            <li>@Html.ActionLink("Serivce Request", "Create", "ServiceRequest")</li>
                             <li>@Html.ActionLink("Request a Repair", "Create", "RepairRequests")</li>
-                            <li><a href="#">Energy Efficient Lighting</a></li>
+                            <li>Energy Efficient Lighting</li>
                             <li>@Html.ActionLink("Request for Information", "Create", "RequestForInformation")</li>
                         </ul>
                     </li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Dashboard", "About", "Home")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                    <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        
-    </div>
+                </div><!-- /.container-fluid -->
+            </nav>
+            <div class="container body-content">
+                @RenderBody()
+                <hr />
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
+            </div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
+        </body>
+        </html>

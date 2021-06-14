@@ -4,27 +4,24 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lift Schedule</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Lift_Date)
+            Date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Lift_Location)
+            Location
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Lift_Time)
+            Time
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Lift_Contact)
+            Contact
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Customer_Information.LastName)
+            Last Name
         </th>
         <th></th>
     </tr>
@@ -47,9 +44,10 @@
             @Html.DisplayFor(modelItem => item.Customer_Information.LastName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.lift_Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.lift_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.lift_Id })
+            @Html.ActionLink("Create", "Create")
+            @Html.ActionLink("Edit", "Edit", new { id = item.lift_Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.lift_Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.lift_Id })
         </td>
     </tr>
 }

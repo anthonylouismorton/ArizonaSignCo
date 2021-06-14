@@ -19,7 +19,7 @@ namespace ArizonaSignCompany.Models
         public string last_name { get; set; }
         public string Type { get; set; }
         public string description { get; set; }
-        public byte[] attachment { get; set; }
+        public string attachment { get; set; }
         public string contact { get; set; }
         public string location { get; set; }
         public string company { get; set; }

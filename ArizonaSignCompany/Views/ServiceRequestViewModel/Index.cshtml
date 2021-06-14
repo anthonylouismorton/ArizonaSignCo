@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ArizonaSignCompany.Models.Service_Request>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Contact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Service_Issue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LU_Contact_Method.Contact_Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer_Information.LastName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Location)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Time)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Contact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Service_Issue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LU_Contact_Method.Contact_Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer_Information.LastName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Request_ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Request_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Request_ID })
+        </td>
+    </tr>
+}
+
+</table>

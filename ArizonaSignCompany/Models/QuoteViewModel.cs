@@ -12,9 +12,6 @@ namespace ArizonaSignCompany.Models
         [Required]
         public int Request_number { get; set; }
 
-        [Required]
-        [Display(Name = "Attachments")]
-        public byte[] attachment { get; set; }
 
         [Required]
         [Display(Name = "Contact")]
