@@ -16,7 +16,7 @@ namespace ArizonaSignCompany.Models
     {
         public System.DateTime Lift_Date { get; set; }
         public string Lift_Location { get; set; }
-        public string Lift_Time { get; set; }
+        public Nullable<System.TimeSpan> Lift_Time { get; set; }
         public string Lift_Contact { get; set; }
         public string Customer_ID { get; set; }
         public int lift_Id { get; set; }

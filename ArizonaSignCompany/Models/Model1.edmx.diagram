@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="9a90fb442498489fb273d25c3034e50f" Name="Diagram1" ZoomLevel="99">
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.Lift_Schedule" Width="1.5" PointX="9.625" PointY="6.625" />
-        <EntityTypeShape EntityType="ArizonaSignCompanyModel.LU_Contact_Method" Width="1.5" PointX="7.375" PointY="9.375" />
+        <EntityTypeShape EntityType="ArizonaSignCompanyModel.LU_Contact_Method" Width="1.5" PointX="7.375" PointY="5.75" />
         <EntityTypeShape EntityType="ArizonaSignCompanyModel.Service_Request" Width="1.5" PointX="9.625" PointY="2.625" />
         <AssociationConnector Association="ArizonaSignCompanyModel.FK__Service_R__Conta__45F365D3" />
         <EntityTypeShape EntityType="ArizonaSignCompanyModel.Customer_Information" Width="1.5" PointX="2.5" PointY="1.75" />
-        <AssociationConnector Association="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" />
         <AssociationConnector Association="ArizonaSignCompanyModel.FK__Service_R__Custo__4316F928" />
         <EntityTypeShape EntityType="ArizonaSignCompanyModel.Request" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="ArizonaSignCompanyModel.Lift_Schedule" Width="1.5" PointX="4.75" PointY="4.375" />
+        <AssociationConnector Association="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

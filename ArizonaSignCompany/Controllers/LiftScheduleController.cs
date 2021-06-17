@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ArizonaSignCompany.Models;
+using Microsoft.AspNet.Identity;
 
 namespace ArizonaSignCompany.Controllers
 {
@@ -18,31 +19,17 @@ namespace ArizonaSignCompany.Controllers
 
         // GET: LiftSchedule
         [ChildActionOnly]
+        
         public ActionResult Index()
         {
             var lift_Schedule = db.Lift_Schedule.Include(l => l.Customer_Information);
             return PartialView(lift_Schedule.ToList());
         }
 
-        // GET: LiftSchedule/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Lift_Schedule lift_Schedule = db.Lift_Schedule.Find(id);
-            if (lift_Schedule == null)
-            {
-                return HttpNotFound();
-            }
-            return View(lift_Schedule);
-        }
-
         // GET: LiftSchedule/Create
         public ActionResult Create()
         {
-            ViewBag.Customer_ID = new SelectList(db.Customer_Information, "Customer_ID", "LastName");
+            
             return View();
         }
 
@@ -61,17 +48,15 @@ namespace ArizonaSignCompany.Controllers
                     Lift_Location = schedule.Lift_Location,
                     Lift_Time = schedule.Lift_Time,
                     Lift_Contact = schedule.Lift_Contact,
-                    Customer_ID = schedule.Customer_ID,
+                    Customer_ID = User.Identity.GetUserId(),
                     lift_Id = schedule.lift_id
 
 
                 };
                 db.Lift_Schedule.Add(scheduleLift);
                 db.SaveChanges();
-                return RedirectToAction("Create","LiftSchedule");
+                return RedirectToAction("index", "home");
             }
-
-            ViewBag.Customer_ID = new SelectList(db.Customer_Information, "Customer_ID", "LastName", schedule.Customer_ID);
             return View(schedule);
         }
 
@@ -102,7 +87,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 db.Entry(lift_Schedule).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Dashboard");
             }
             ViewBag.Customer_ID = new SelectList(db.Customer_Information, "Customer_ID", "LastName", lift_Schedule.Customer_ID);
             return View(lift_Schedule);
@@ -131,9 +116,9 @@ namespace ArizonaSignCompany.Controllers
             Lift_Schedule lift_Schedule = db.Lift_Schedule.Find(id);
             db.Lift_Schedule.Remove(lift_Schedule);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Dashboard");
         }
-
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -143,9 +128,6 @@ namespace ArizonaSignCompany.Controllers
             base.Dispose(disposing);
         }
 
-        public void Email()
-        {
-
-        }
+        
     }
 }

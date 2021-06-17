@@ -27,7 +27,7 @@
           </Key>
           <Property Name="Lift_Date" Type="date" Nullable="false" />
           <Property Name="Lift_Location" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Lift_Time" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Lift_Time" Type="time" Precision="7" />
           <Property Name="Lift_Contact" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="Customer_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="lift_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -126,7 +126,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ArizonaSignCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ArizonaSignCompanyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Lift_Schedule" EntityType="ArizonaSignCompanyModel.Lift_Schedule" />
           <EntitySet Name="LU_Contact_Method" EntityType="ArizonaSignCompanyModel.LU_Contact_Method" />
           <EntitySet Name="Service_Request" EntityType="ArizonaSignCompanyModel.Service_Request" />
           <AssociationSet Name="FK__Service_R__Conta__45F365D3" Association="ArizonaSignCompanyModel.FK__Service_R__Conta__45F365D3">
@@ -134,28 +133,17 @@
             <End Role="Service_Request" EntitySet="Service_Request" />
           </AssociationSet>
           <EntitySet Name="Customer_Information" EntityType="ArizonaSignCompanyModel.Customer_Information" />
-          <AssociationSet Name="FK__Lift_Sche__Custo__4222D4EF" Association="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF">
-            <End Role="Customer_Information" EntitySet="Customer_Information" />
-            <End Role="Lift_Schedule" EntitySet="Lift_Schedule" />
-          </AssociationSet>
           <AssociationSet Name="FK__Service_R__Custo__4316F928" Association="ArizonaSignCompanyModel.FK__Service_R__Custo__4316F928">
             <End Role="Customer_Information" EntitySet="Customer_Information" />
             <End Role="Service_Request" EntitySet="Service_Request" />
           </AssociationSet>
           <EntitySet Name="Requests" EntityType="ArizonaSignCompanyModel.Request" />
+          <EntitySet Name="Lift_Schedule" EntityType="ArizonaSignCompanyModel.Lift_Schedule" />
+          <AssociationSet Name="FK__Lift_Sche__Custo__4222D4EF" Association="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF">
+            <End Role="Customer_Information" EntitySet="Customer_Information" />
+            <End Role="Lift_Schedule" EntitySet="Lift_Schedule" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="Lift_Schedule">
-          <Key>
-            <PropertyRef Name="lift_Id" />
-          </Key>
-          <Property Name="Lift_Date" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="Lift_Location" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Lift_Time" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Lift_Contact" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Customer_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="lift_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Customer_Information" Relationship="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" FromRole="Lift_Schedule" ToRole="Customer_Information" />
-        </EntityType>
         <EntityType Name="LU_Contact_Method">
           <Key>
             <PropertyRef Name="Contact_ID" />
@@ -206,21 +194,9 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Customer_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="isApproved" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Lift_Schedule" Relationship="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" FromRole="Customer_Information" ToRole="Lift_Schedule" />
           <NavigationProperty Name="Service_Request" Relationship="ArizonaSignCompanyModel.FK__Service_R__Custo__4316F928" FromRole="Customer_Information" ToRole="Service_Request" />
+          <NavigationProperty Name="Lift_Schedule" Relationship="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" FromRole="Customer_Information" ToRole="Lift_Schedule" />
         </EntityType>
-        <Association Name="FK__Lift_Sche__Custo__4222D4EF">
-          <End Type="ArizonaSignCompanyModel.Customer_Information" Role="Customer_Information" Multiplicity="1" />
-          <End Type="ArizonaSignCompanyModel.Lift_Schedule" Role="Lift_Schedule" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer_Information">
-              <PropertyRef Name="Customer_ID" />
-            </Principal>
-            <Dependent Role="Lift_Schedule">
-              <PropertyRef Name="Customer_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__Service_R__Custo__4316F928">
           <End Type="ArizonaSignCompanyModel.Customer_Information" Role="Customer_Information" Multiplicity="0..1" />
           <End Type="ArizonaSignCompanyModel.Service_Request" Role="Service_Request" Multiplicity="*" />
@@ -247,24 +223,36 @@
           <Property Name="location" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="company" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Lift_Schedule">
+          <Key>
+            <PropertyRef Name="lift_Id" />
+          </Key>
+          <Property Name="Lift_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Lift_Location" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Lift_Time" Type="Time" Precision="7" />
+          <Property Name="Lift_Contact" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Customer_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="lift_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Customer_Information" Relationship="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" FromRole="Lift_Schedule" ToRole="Customer_Information" />
+        </EntityType>
+        <Association Name="FK__Lift_Sche__Custo__4222D4EF">
+          <End Type="ArizonaSignCompanyModel.Customer_Information" Role="Customer_Information" Multiplicity="1" />
+          <End Type="ArizonaSignCompanyModel.Lift_Schedule" Role="Lift_Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Information">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Lift_Schedule">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ArizonaSignCompanyModelStoreContainer" CdmEntityContainer="ArizonaSignCompanyEntities">
-          <EntitySetMapping Name="Lift_Schedule">
-            <EntityTypeMapping TypeName="ArizonaSignCompanyModel.Lift_Schedule">
-              <MappingFragment StoreEntitySet="Lift_Schedule">
-                <ScalarProperty Name="lift_Id" ColumnName="lift_Id" />
-                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
-                <ScalarProperty Name="Lift_Contact" ColumnName="Lift_Contact" />
-                <ScalarProperty Name="Lift_Time" ColumnName="Lift_Time" />
-                <ScalarProperty Name="Lift_Location" ColumnName="Lift_Location" />
-                <ScalarProperty Name="Lift_Date" ColumnName="Lift_Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LU_Contact_Method">
             <EntityTypeMapping TypeName="ArizonaSignCompanyModel.LU_Contact_Method">
               <MappingFragment StoreEntitySet="LU_Contact_Method">
@@ -316,6 +304,18 @@
                 <ScalarProperty Name="last_name" ColumnName="last_name" />
                 <ScalarProperty Name="first_name" ColumnName="first_name" />
                 <ScalarProperty Name="Request_number" ColumnName="Request_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Lift_Schedule">
+            <EntityTypeMapping TypeName="ArizonaSignCompanyModel.Lift_Schedule">
+              <MappingFragment StoreEntitySet="Lift_Schedule">
+                <ScalarProperty Name="lift_Id" ColumnName="lift_Id" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Lift_Contact" ColumnName="Lift_Contact" />
+                <ScalarProperty Name="Lift_Time" ColumnName="Lift_Time" />
+                <ScalarProperty Name="Lift_Location" ColumnName="Lift_Location" />
+                <ScalarProperty Name="Lift_Date" ColumnName="Lift_Date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

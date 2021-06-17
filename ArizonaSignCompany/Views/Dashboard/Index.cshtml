@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Dashboard";
+    ViewBag.HasCalendar = true;
 }
 
 
@@ -28,6 +29,13 @@
     @Html.Action("Index", "RepairRequests")
 </div>
 
+<div class="serviceRequest">
+    @Html.Action("Index", "ServiceRequest")
+</div>
+
 <div class="requestForInformation">
     @Html.Action("Index", "RequestForInformation")
+</div>
+<div class="requestForInformation">
+    @Html.Action("Calendar", "Home")
 </div>

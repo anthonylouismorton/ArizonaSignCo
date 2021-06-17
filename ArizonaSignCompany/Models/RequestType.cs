@@ -10,6 +10,7 @@ namespace ArizonaSignCompany.Models
         quote,
         installation,
         information,
-        repair
+        repair,
+        service
     }
 }

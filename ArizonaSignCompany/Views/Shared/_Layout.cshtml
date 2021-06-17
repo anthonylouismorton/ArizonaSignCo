@@ -6,6 +6,13 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+    @if (ViewBag.HasCalendar == true)
+    {
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.css" rel="stylesheet" />
+
+    }
 
 </head>
 <body>
@@ -34,7 +41,7 @@
                             <li>@Html.ActionLink("Sign Installation", "Create", "Installation")</li>
                             <li>@Html.ActionLink("Serivce Request", "Create", "ServiceRequest")</li>
                             <li>@Html.ActionLink("Request a Repair", "Create", "RepairRequests")</li>
-                            <li>Energy Efficient Lighting</li>
+                            <li>@Html.ActionLink("Request a Repair", "Create", "RepairRequests")</li>
                             <li>@Html.ActionLink("Request for Information", "Create", "RequestForInformation")</li>
                         </ul>
                     </li>
@@ -42,21 +49,28 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     @if (User.IsInRole("Admin"))
                     {
-                    <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
+                        <li>@Html.ActionLink("Dashboard", "Index", "Dashboard")</li>
                     }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
-            </nav>
-            <div class="container body-content">
-                @RenderBody()
-                <hr />
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
 
-            </div>
+    </div>
 
-            @Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/bootstrap")
-            @RenderSection("scripts", required: false)
-        </body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @if (ViewBag.HasCalendar == true)
+    {
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.7/semantic.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+        <script src="~/Scripts/Calendar.js"></script>
+    }
+    @RenderSection("scripts", required: false)
+</body>
         </html>

@@ -25,10 +25,10 @@ namespace ArizonaSignCompany.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Lift_Schedule> Lift_Schedule { get; set; }
         public virtual DbSet<LU_Contact_Method> LU_Contact_Method { get; set; }
         public virtual DbSet<Service_Request> Service_Request { get; set; }
         public virtual DbSet<Customer_Information> Customer_Information { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<Lift_Schedule> Lift_Schedule { get; set; }
     }
 }

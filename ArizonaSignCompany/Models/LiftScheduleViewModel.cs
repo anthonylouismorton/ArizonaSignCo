@@ -10,10 +10,9 @@ namespace ArizonaSignCompany.Models
     {
         [Required]
         public int lift_id { get; set; }
-        [Required]
-        public string Customer_ID { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
         [Display(Name = "Date")]
         public System.DateTime Lift_Date { get; set; }
 
@@ -23,7 +22,8 @@ namespace ArizonaSignCompany.Models
 
         [Required]
         [Display(Name = "Time")]
-        public string Lift_Time { get; set; }
+        [DataType(DataType.Time)]
+        public TimeSpan? Lift_Time { get; set; }
 
         [Required]
         [Display(Name = "Contact")]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -16,9 +17,12 @@ namespace ArizonaSignCompany.Controllers
         private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
 
         // GET: ServiceRequest
+        [ChildActionOnly]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View(db.Requests.ToList());
+            var requestType = RequestType.service.ToString();
+            return PartialView(db.Requests.Where(r => r.Type == requestType));
         }
 
         // GET: ServiceRequest/Details/5
@@ -46,34 +50,47 @@ namespace ArizonaSignCompany.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RepairRequestViewModels request)
+        public async Task<ActionResult> Create(ServiceRequestViewModel service, HttpPostedFileBase upload)
         {
 
-            if (ModelState.IsValid)
-            {
-
-
-                var serviceRequest = new Request
+                var isValid = ModelState.IsValid;
+                if (upload == null || upload.ContentLength == 0)
                 {
-                    first_name = request.first_name,
-                    last_name = request.last_name,
-                    description = request.description,
-                    attachment = request.attachment,
-                    contact = request.contact,
-                    location = request.location,
-                    company = request.company,
-                    Request_number = request.Request_number,
+                    isValid = false;
+                    ModelState.AddModelError(null, "Invalid file type. Please select another file.");
+
+                }
+                if (isValid)
+                {
+                    var serviceRequest = new Request
+                    {
+                        first_name = service.first_name,
+                        last_name = service.last_name,
+                        description = service.description,
+                        contact = service.contact,
+                        location = service.location,
+                        company = service.company,
+                        Request_number = service.Request_number,
+                        Type = RequestType.service.ToString()
 
 
 
-                };
-                db.Requests.Add(serviceRequest);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                    };
 
-            return View(request);
+                        var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
+                        var filepath = Server.MapPath("~/UserUploads");
+                        var folderpath = Path.Combine(filepath, filename);
+                        upload.SaveAs(folderpath);
+                        serviceRequest.attachment = filename;
+                        db.Requests.Add(serviceRequest);
+                        db.SaveChanges();
+                        return RedirectToAction("Create", "ServiceRequest");
+                }
+
+                return View(service);
+           
         }
 
         // GET: ServiceRequest/Edit/5
@@ -102,7 +119,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Dashboard");
             }
             return View(request);
         }
@@ -119,7 +136,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 return HttpNotFound();
             }
-            return View(request);
+            return PartialView(request);
         }
 
         // POST: ServiceRequest/Delete/5
@@ -130,7 +147,7 @@ namespace ArizonaSignCompany.Controllers
             Request request = db.Requests.Find(id);
             db.Requests.Remove(request);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Dashboard");
         }
 
         protected override void Dispose(bool disposing)

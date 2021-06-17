@@ -116,7 +116,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Dashboard");
             }
             return View(request);
         }
@@ -144,7 +144,7 @@ namespace ArizonaSignCompany.Controllers
             Request request = db.Requests.Find(id);
             db.Requests.Remove(request);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Dashboard");
         }
 
         protected override void Dispose(bool disposing)

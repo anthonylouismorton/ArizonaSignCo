@@ -12,7 +12,6 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Lift Schedule</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -56,7 +55,7 @@
 }
 
 <div style="color:red;">
-    Note: Weekend, after hours, or emergency crane lifts can only be scheduled via email or hone.
+    Note: Weekend, after hours, or emergency crane lifts can only be scheduled via email or phone.
 </div>
 <div>
     Vist the @Html.ActionLink("Contact", "Contact", "Home") page for more details.

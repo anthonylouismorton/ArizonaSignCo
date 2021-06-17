@@ -50,7 +50,7 @@ namespace ArizonaSignCompany.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(RepairRequestViewModels information, HttpPostedFileBase upload)
+        public async Task<ActionResult> Create(RequestForInformationViewModel information, HttpPostedFileBase upload)
         {
 
             var isValid = ModelState.IsValid;
@@ -68,7 +68,6 @@ namespace ArizonaSignCompany.Controllers
                     first_name = information.first_name,
                     last_name = information.last_name,
                     description = information.description,
-                    attachment = information.attachment,
                     contact = information.contact,
                     location = information.location,
                     company = information.company,
@@ -112,7 +111,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Dashboard");
             }
             return View(request);
         }
@@ -140,7 +139,7 @@ namespace ArizonaSignCompany.Controllers
             Request request = db.Requests.Find(id);
             db.Requests.Remove(request);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Dashboard");
         }
 
         protected override void Dispose(bool disposing)

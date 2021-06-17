@@ -55,6 +55,20 @@ namespace ArizonaSignCompany.Controllers
             return View();
         }
 
-        
+        public ActionResult Lighting()
+        {
+            ViewBag.Message = "Efficient-Lighting Page.";
+
+            return View();
+        }
+
+        public ActionResult Calendar()
+        {
+            ViewBag.Message = "Calendar";
+
+            return PartialView();
+        }
+
+
     }
 }

@@ -35,10 +35,6 @@ namespace ArizonaSignCompany.Models
         [Display(Name = "Location")]
         public string location { get; set; }
 
-
-        [Display(Name = "Attachment")]
-
-        public string attachment { get; set; }
     }
 
 
@@ -72,9 +68,6 @@ namespace ArizonaSignCompany.Models
             [Display(Name = "Location")]
             public string location { get; set; }
 
-
-            [Display(Name = "Attachment")]
-            public string attachment { get; set; }
 
         
     }

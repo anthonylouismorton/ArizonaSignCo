@@ -67,6 +67,9 @@ namespace ArizonaSignCompany.Controllers
                 var quoteRequest = new Request
                 {
                     Request_number = quote.Request_number,
+                    first_name = quote.first_name,
+                    last_name = quote.last_name,
+                    company = quote.company,
                     contact = quote.contact,
                     Type = RequestType.quote.ToString()
                 };
@@ -111,7 +114,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 db.Entry(request).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Dashboard");
             }
             return View(request);
         }
@@ -139,7 +142,7 @@ namespace ArizonaSignCompany.Controllers
             Request request = db.Requests.Find(id);
             db.Requests.Remove(request);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Dashboard");
         }
 
         protected override void Dispose(bool disposing)
