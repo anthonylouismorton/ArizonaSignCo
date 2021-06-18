@@ -23,7 +23,10 @@ namespace ArizonaSignCompany.Models
         [DataType(DataType.Time)]
 
         [Display(Name = "Time")]
-        public Nullable<System.TimeSpan> Lift_Time { get; set; }
+        public System.TimeSpan start_time { get; set; }
+
+        [Display(Name = "Time")]
+        public System.TimeSpan end_time { get; set; }
 
         [Display(Name = "Contact Information")]
         public string Lift_Contact { get; set; }

@@ -55,13 +55,6 @@ namespace ArizonaSignCompany.Controllers
         public async Task<ActionResult> Create(QuoteViewModel quote, HttpPostedFileBase upload)
         {
             var isValid = ModelState.IsValid;
-            if (upload == null || upload.ContentLength == 0)
-            {
-                isValid = false;
-                
-                    ModelState.AddModelError(null, "Invalid file type. Please select another file.");
-                                
-            }
             if (isValid)
             {
                 var quoteRequest = new Request
@@ -73,15 +66,18 @@ namespace ArizonaSignCompany.Controllers
                     contact = quote.contact,
                     Type = RequestType.quote.ToString()
                 };
-
+                if (upload != null && upload.ContentLength > 0)
+                {
                     var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
                     var filepath = Server.MapPath("~/UserUploads");
                     var folderpath = Path.Combine(filepath, filename);
                     upload.SaveAs(folderpath);
                     quoteRequest.attachment = filename;
+                }
                     db.Requests.Add(quoteRequest);
                     db.SaveChanges();
                     return RedirectToAction("Create", "Quote");
+                
 
             }
 

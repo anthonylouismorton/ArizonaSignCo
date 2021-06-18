@@ -359,8 +359,9 @@
     <Content Include="Views\ServiceRequest\Details.cshtml" />
     <Content Include="Views\ServiceRequest\Edit.cshtml" />
     <Content Include="Views\ServiceRequest\Index.cshtml" />
-    <Content Include="Views\Lighting\View.cshtml" />
+    <Content Include="Views\Home\Lighting.cshtml" />
     <Content Include="Views\Home\Calendar.cshtml" />
+    <Content Include="Views\LiftSchedule\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -27,28 +27,31 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lift_Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lift_Location)
-        </td>
-        <td>
-            @((DateTime.Today+(item.Lift_Time ?? TimeSpan.Zero)).ToString("h:mm tt"))
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lift_Contact)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer_Information.LastName)
-        </td>
-        <td>
-            @Html.ActionLink("Create", "Create", new { id = item.lift_Id }) |
-            @Html.ActionLink("Edit", "Edit", new { id = item.lift_Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.lift_Id })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lift_Date)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lift_Location)
+    </td>
+    <td>
+        @((DateTime.Today+item.start_time).ToString("h:mm tt"))
+    </td>
+    <td>
+        @((DateTime.Today+item.end_time).ToString("h:mm tt"))
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Lift_Contact)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Customer_Information.LastName)
+    </td>
+    <td>
+        @Html.ActionLink("Create", "Create", new { id = item.lift_Id }) |
+        @Html.ActionLink("Edit", "Edit", new { id = item.lift_Id }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.lift_Id })
+    </td>
+</tr>
 }
 
 </table>

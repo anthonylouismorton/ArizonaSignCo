@@ -16,12 +16,16 @@ namespace ArizonaSignCompany.Models
         {
 
         }
-        public LiftRequestApiResponse(Lift_Schedule liftSchedule)
+        public LiftRequestApiResponse(Lift_Schedule liftSchedule, bool showPrivateInformation)
         {
-            title = liftSchedule.Lift_Location;
-            start = liftSchedule.Lift_Date + (liftSchedule.Lift_Time ?? TimeSpan.Zero);
-            end = start.AddHours(1.5);
-            url = $"/LiftSchedule/Details/{liftSchedule.lift_Id}";
+            
+            start = liftSchedule.Lift_Date + liftSchedule.start_time;
+            end = liftSchedule.Lift_Date + liftSchedule.end_time;
+            if (showPrivateInformation)
+            {
+                url = $"/LiftSchedule/Details/{liftSchedule.lift_Id}";
+                title = liftSchedule.Lift_Location;
+            }
         }
     }
     

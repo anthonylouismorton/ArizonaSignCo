@@ -25,6 +25,20 @@ namespace ArizonaSignCompany.Controllers
             var lift_Schedule = db.Lift_Schedule.Include(l => l.Customer_Information);
             return PartialView(lift_Schedule.ToList());
         }
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var request = db.Lift_Schedule.Find(id);
+            if (request == null)
+            {
+                return HttpNotFound();
+            }
+            return View(request);
+        }
+
 
         // GET: LiftSchedule/Create
         public ActionResult Create()
@@ -40,13 +54,24 @@ namespace ArizonaSignCompany.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(LiftScheduleViewModel schedule)
         {
-            if (ModelState.IsValid)
+            var isValid = ModelState.IsValid;
+            if(!isValid && User.IsInRole("Admin"))
+            {
+                ModelState.Clear();
+                isValid = schedule.isValidForAdmin(out var errormessage);
+                if(!isValid)
+                {
+                    ModelState.AddModelError(null, errormessage);
+                }
+            }
+            if (isValid)
             {
                 var scheduleLift = new Lift_Schedule
                 {
                     Lift_Date = schedule.Lift_Date,
                     Lift_Location = schedule.Lift_Location,
-                    Lift_Time = schedule.Lift_Time,
+                    end_time = schedule.end_time,
+                    start_time = schedule.start_time,
                     Lift_Contact = schedule.Lift_Contact,
                     Customer_ID = User.Identity.GetUserId(),
                     lift_Id = schedule.lift_id

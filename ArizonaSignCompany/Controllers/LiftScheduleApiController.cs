@@ -14,11 +14,11 @@ namespace ArizonaSignCompany.Controllers
         [Authorize]
         public IEnumerable<LiftRequestApiResponse> Get()
         {
+            var isAdmin = User.IsInRole("Admin");
             var startDate = DateTime.Today.AddDays(-DateTime.Today.Day + 1).AddMonths(-1);
             var lift = db.Lift_Schedule.Where(ls => ls.Lift_Date >= startDate)
-            .AsEnumerable().Select(ls => new LiftRequestApiResponse(ls));
+            .AsEnumerable().Select(ls => new LiftRequestApiResponse(ls, isAdmin));
             return lift;
-
         }
 
         protected override void Dispose(bool disposing)
