@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "LiftScheduleCalendar";
+    ViewBag.HasCalendar = true;
+}
+
+<h2>Lift Schedule Calendar</h2>
+
+<div class="Calendar">
+    @Html.Action("Calendar", "Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

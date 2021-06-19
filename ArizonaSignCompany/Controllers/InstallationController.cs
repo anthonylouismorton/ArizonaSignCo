@@ -56,11 +56,6 @@ namespace ArizonaSignCompany.Controllers
         public async Task<ActionResult> Create(InstallationViewModel installation, HttpPostedFileBase upload)
         {
             var isValid = ModelState.IsValid;
-            if(upload == null || upload.ContentLength == 0)
-            {
-                isValid = false;
-                ModelState.AddModelError(null, "Please upload a valid file");
-            }
             if (isValid)
             {
 
@@ -72,16 +67,25 @@ namespace ArizonaSignCompany.Controllers
                     company = installation.company,
                     contact = installation.contact,
                     Type = RequestType.installation.ToString()
-                };              
-              
+                };
+                if (upload != null && upload.ContentLength > 0)
+                {
                     var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
                     var filepath = Server.MapPath("~/UserUploads");
                     var folderpath = Path.Combine(filepath, filename);
                     upload.SaveAs(folderpath);
-                    installationRequest.attachment = filename;           
+                    installationRequest.attachment = filename;
+                }
+                //need to redirect to page and not yellow screen of death
+                /*else if(upload == null || upload.ContentLength == 0)
+                {
+                    isValid = false;
+                    ModelState.AddModelError(null, "Please attach an installation package");
+                    return View(installation);
+                }*/
                     db.Requests.Add(installationRequest);
                     db.SaveChanges(); 
-                    return RedirectToAction("Create","Installation");
+                    return RedirectToAction("ConfirmationPage","Home");
             }
 
             return View(installation);

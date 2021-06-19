@@ -247,6 +247,25 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="img\88Ranch.jpeg" />
+    <Content Include="img\bealest.jpg" />
+    <Content Include="img\beforeandafter.jpg" />
+    <Content Include="img\Bullhead.jpeg" />
+    <Content Include="img\Century21.jpeg" />
+    <Content Include="img\Culvers.jpeg" />
+    <Content Include="img\CulversDrawing.jpg" />
+    <Content Include="img\Dicks.jpg" />
+    <Content Include="img\DQ2.jpg" />
+    <Content Include="img\DQ6.jpg" />
+    <Content Include="img\GrassHopper.jpg" />
+    <Content Include="img\HarborFreight.jpeg" />
+    <Content Include="img\Kingman.jpeg" />
+    <Content Include="img\LedVsFlourescent.jpg" />
+    <Content Include="img\LedVsNeon.png" />
+    <Content Include="img\navyLed.jpg" />
+    <Content Include="img\navyNeon.jpg" />
+    <Content Include="img\Potters.jpeg" />
+    <Content Include="img\TruckWash.jpeg" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Model1.edmx</DependentUpon>
@@ -312,12 +331,12 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Quote\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Quote\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Quote\Manage\Index.cshtml" />
+    <Content Include="Views\Quote\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Quote\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Quote\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\UserProfiles\Create.cshtml" />
@@ -362,6 +381,8 @@
     <Content Include="Views\Home\Lighting.cshtml" />
     <Content Include="Views\Home\Calendar.cshtml" />
     <Content Include="Views\LiftSchedule\Details.cshtml" />
+    <Content Include="Views\Home\ConfirmationPage.cshtml" />
+    <Content Include="Views\LiftSchedule\LiftScheduleCalendar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

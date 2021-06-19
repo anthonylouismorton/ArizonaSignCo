@@ -20,13 +20,24 @@
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 500px;
 }
 div#bs-example-navbar-collapse-1 {
     padding-left: 300px;
 }
-
-nav
-{
-    clear: both;
+.carousel .item {
+    margin: auto;
+    height: 400px;
+    width: 100%;
 }
+
+.item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-height: 300px;
+}
+.navbar-default{
+}
+    
+

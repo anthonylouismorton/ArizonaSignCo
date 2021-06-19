@@ -64,6 +64,8 @@ namespace ArizonaSignCompany.Controllers
                     last_name = quote.last_name,
                     company = quote.company,
                     contact = quote.contact,
+                    description = quote.description,
+                    location = quote.location,
                     Type = RequestType.quote.ToString()
                 };
                 if (upload != null && upload.ContentLength > 0)
@@ -76,7 +78,7 @@ namespace ArizonaSignCompany.Controllers
                 }
                     db.Requests.Add(quoteRequest);
                     db.SaveChanges();
-                    return RedirectToAction("Create", "Quote");
+                    return RedirectToAction("ConfirmationPage", "Home");
                 
 
             }

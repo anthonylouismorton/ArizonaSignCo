@@ -118,7 +118,7 @@ namespace ArizonaSignCompany.Models
         public TimeSpan end_time { get; set; }
 
         [Required]
-        [Display(Name = "Contact")]
+        [Display(Name = "Lift Contact")]
         public string Lift_Contact { get; set; }
 
     }

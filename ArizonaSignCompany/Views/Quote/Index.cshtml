@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Quotes</h2>
+<h2>Sign Manufacturing</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,13 +18,13 @@
             Last Name
         </th>
         <th>
-            Type
-        </th>
-        <th>
-            Attachment
+            Description
         </th>
         <th>
             Contact
+        </th>
+        <th>
+            Attachment
         </th>
         <th>
             Location
@@ -36,38 +36,35 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.first_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.last_name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.description)
-        </td>
-        <td>
-            <a href="~/UserUploads/@(item.attachment)" target="_blank">@item.attachment</a>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.contact)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.location)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.company)
-        </td>
-        <td>
-            @Html.ActionLink("Create", "Create", new { id = item.Request_number }) |
-            @Html.ActionLink("Edit", "Edit", new { id = item.Request_number }) |
-            @Html.ActionLink("Details", "Details", new { id = item.Request_number }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Request_number })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.first_name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.last_name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.contact)
+    </td>
+    <td>
+        <a href="~/UserUploads/@(item.attachment)" target="_blank">@item.attachment</a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.location)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.company)
+    </td>
+    <td>
+        @Html.ActionLink("Create", "Create", new { id = item.Request_number }) |
+        @Html.ActionLink("Edit", "Edit", new { id = item.Request_number }) |
+        @Html.ActionLink("Details", "Details", new { id = item.Request_number }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.Request_number })
+    </td>
+</tr>
 }
 
 </table>

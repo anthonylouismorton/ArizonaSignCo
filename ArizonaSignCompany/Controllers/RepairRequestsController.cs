@@ -84,7 +84,7 @@ namespace ArizonaSignCompany.Controllers
                     repairRequest.attachment = filename;
                     db.Requests.Add(repairRequest);
                     db.SaveChanges();
-                    return RedirectToAction("Create", "RepairRequests");
+                    return RedirectToAction("ConfirmationPage", "Home");
             }
 
             return View(repair);

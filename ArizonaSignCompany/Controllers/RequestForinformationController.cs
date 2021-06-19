@@ -79,7 +79,7 @@ namespace ArizonaSignCompany.Controllers
                 };
                 db.Requests.Add(informationRequest);
                 db.SaveChanges();
-                return RedirectToAction("Create", "RequestForinformation");
+                return RedirectToAction("ConfirmationPage", "Home");
             }
 
             return View(information);

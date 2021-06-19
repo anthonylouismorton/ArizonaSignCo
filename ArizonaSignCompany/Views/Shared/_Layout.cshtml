@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <nav class="navbar navbar-default">
+    <nav class="navbar-default">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -33,17 +33,17 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Request Crane Lift", "Create", "LiftSchedule")</li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Services <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li>@Html.ActionLink("Quote", "Create", "Quote")</li>
+                            <li>@Html.ActionLink("Sign Manufacturing - Quotes", "Create", "Quote")</li>
                             <li>@Html.ActionLink("Sign Installation", "Create", "Installation")</li>
                             <li>@Html.ActionLink("Serivce Request", "Create", "ServiceRequest")</li>
                             <li>@Html.ActionLink("Request a Repair", "Create", "RepairRequests")</li>
                             <li>@Html.ActionLink("Request for Information", "Create", "RequestForInformation")</li>
                         </ul>
                     </li>
+                    <li>@Html.ActionLink("Request Crane Lift", "Create", "LiftSchedule")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     @if (User.IsInRole("Admin"))
@@ -72,4 +72,4 @@
     }
     @RenderSection("scripts", required: false)
 </body>
-        </html>
+</html>

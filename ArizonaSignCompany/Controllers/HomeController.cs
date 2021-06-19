@@ -69,6 +69,12 @@ namespace ArizonaSignCompany.Controllers
             return PartialView();
         }
 
+        public ActionResult ConfirmationPage()
+        {
+            ViewBag.Message = "Confirmation Page";
+
+                return View();
+        }
 
     }
 }

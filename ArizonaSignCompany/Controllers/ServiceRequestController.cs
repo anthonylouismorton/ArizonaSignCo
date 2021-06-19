@@ -86,7 +86,7 @@ namespace ArizonaSignCompany.Controllers
                         serviceRequest.attachment = filename;
                         db.Requests.Add(serviceRequest);
                         db.SaveChanges();
-                        return RedirectToAction("Create", "ServiceRequest");
+                        return RedirectToAction("ConfirmationPage", "Home");
                 }
 
                 return View(service);
