@@ -19,10 +19,13 @@ namespace ArizonaSignCompany.Controllers
         // GET: Quote
         [ChildActionOnly]
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
-        {
+        public ActionResult Index(requestColumnName? sortColumn, bool? sortDirection)
+        {            
+            ViewBag.sortColumn = sortColumn;
+            ViewBag.sortDirection = sortDirection;
             var requestType = RequestType.quote.ToString();
-            return PartialView(db.Requests.Where(r => r.Type == requestType));
+            var dbRequests = db.Requests.Where(r => r.Type == requestType).sortByColumn(sortColumn, sortDirection);
+            return PartialView(dbRequests);
         }
 
         // GET: Quote/Details/5
@@ -78,7 +81,7 @@ namespace ArizonaSignCompany.Controllers
                 }
                     db.Requests.Add(quoteRequest);
                     db.SaveChanges();
-                    return RedirectToAction("ConfirmationPage", "Home");
+                    return RedirectToAction("ConfirmationPage", "Home", new { id = quoteRequest.Request_number });
                 
 
             }

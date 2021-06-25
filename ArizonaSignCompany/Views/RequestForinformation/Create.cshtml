@@ -4,7 +4,7 @@
     ViewBag.Title = "Create";
 }
 
-<h1>Have a Question?</h1>
+<h1 class="text-center text-l-size-25">Have a Question?</h1>
 <h2>We have answers. Submit your question using the form below and we will respond within 2 business days</h2>
 
 
@@ -56,18 +56,16 @@
         </div>
 
         <div class="form-group">
-            <label for="upload">File Upload</label>
-            <div class="col-md-10">
+            <label class="control-label col-md-2" for="upload">Attachment</label>
+            <div class="col-md-offset-2 col-md-10">
                 <input type="file" name="upload" id="upload" />
-
-
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.description, 10, 40, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </div>
         </div>

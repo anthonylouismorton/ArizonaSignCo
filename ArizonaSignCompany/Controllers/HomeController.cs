@@ -13,6 +13,7 @@ namespace ArizonaSignCompany.Controllers
     // Will make all pages require login if this is before the class controller
     public class HomeController : Controller
     {
+        private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
         //[AllowAnonymous]
         //Will allow users to see the home page if you use the authorize attribute above the class
         public ActionResult Index()
@@ -47,7 +48,6 @@ namespace ArizonaSignCompany.Controllers
 
             return View();
         }
-        [Authorize]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -69,11 +69,10 @@ namespace ArizonaSignCompany.Controllers
             return PartialView();
         }
 
-        public ActionResult ConfirmationPage()
+        public ActionResult ConfirmationPage(int id)
         {
-            ViewBag.Message = "Confirmation Page";
-
-                return View();
+            var request = db.Requests.Find(id);
+            return View(request);
         }
 
     }

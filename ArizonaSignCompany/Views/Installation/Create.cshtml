@@ -6,13 +6,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     @Styles.Render("~/Content/css")
 </head>
-<h2>Sign Installation</h2>
+<h2  class="text-center text-l-size-25">Sign Installation</h2>
 <h3>We provide installation for other sign companies.</h3>
 <div class="row">
-    <div class="col-lg-offset-4">
+    <div class="col-lg-offset-2">
         <div id="carousel-example-generic" class="carousel slide col-lg-8" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -106,23 +106,22 @@
         <div class="form-group">
             @Html.LabelFor(model => model.company, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.company, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.company, new { htmlAttributes = new { @class = "form-control"  } })
                 @Html.ValidationMessageFor(model => model.company, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <label for="upload"></label>
-            <div class="col-md-10">
+            <label class="control-label col-md-2" for="upload">Attachment</label>
+            <div class="col-md-offset-2 col-md-10">
                 <input type="file" name="upload" id="upload" />
-
+                @Html.ValidationMessage("CustomError", htmlAttributes: new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextAreaFor(model => model.description, 10, 40,  htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </div>
         </div>

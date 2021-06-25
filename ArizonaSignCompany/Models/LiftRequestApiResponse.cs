@@ -21,10 +21,12 @@ namespace ArizonaSignCompany.Models
             
             start = liftSchedule.Lift_Date + liftSchedule.start_time;
             end = liftSchedule.Lift_Date + liftSchedule.end_time;
+            title = "-"+end.ToString("h:mmt").ToLower();
+            
             if (showPrivateInformation)
             {
                 url = $"/LiftSchedule/Details/{liftSchedule.lift_Id}";
-                title = liftSchedule.Lift_Location;
+                title +=" "+liftSchedule.Lift_Location;
             }
         }
     }

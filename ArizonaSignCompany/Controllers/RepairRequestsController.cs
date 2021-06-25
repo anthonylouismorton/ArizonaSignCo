@@ -19,10 +19,13 @@ namespace ArizonaSignCompany.Controllers
         // GET: RepairRequests
         [ChildActionOnly]
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(requestColumnName? sortColumn, bool? sortDirection)
         {
+            ViewBag.sortColumn = sortColumn;
+            ViewBag.sortDirection = sortDirection;
             var requestType = RequestType.repair.ToString();
-            return PartialView(db.Requests.Where(r => r.Type == requestType));
+            var dbRequests = db.Requests.Where(r => r.Type == requestType).sortByColumn(sortColumn, sortDirection);
+            return PartialView(dbRequests);
         }
 
         // GET: RepairRequests/Details/5
@@ -57,11 +60,6 @@ namespace ArizonaSignCompany.Controllers
         {
 
             var isValid = ModelState.IsValid;
-            if (upload == null || upload.ContentLength == 0)
-            {
-                isValid = false;
-                ModelState.AddModelError(null, "Please upload a valid file");
-            }
             if (isValid)
             {
 
@@ -84,7 +82,7 @@ namespace ArizonaSignCompany.Controllers
                     repairRequest.attachment = filename;
                     db.Requests.Add(repairRequest);
                     db.SaveChanges();
-                    return RedirectToAction("ConfirmationPage", "Home");
+                    return RedirectToAction("ConfirmationPage", "Home", new { id = repairRequest.Request_number });
             }
 
             return View(repair);

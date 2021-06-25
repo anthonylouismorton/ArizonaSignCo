@@ -6,9 +6,6 @@
 
 <h2>RFIs</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -65,7 +62,7 @@
             @Html.DisplayFor(modelItem => item.company)
         </td>
         <td>
-            @Html.ActionLink("Create", "Create", new { id = item.Request_number })
+            @Html.ActionLink("Create", "Create", new { id = item.Request_number }) |
             @Html.ActionLink("Edit", "Edit", new { id = item.Request_number }) |
             @Html.ActionLink("Details", "Details", new { id = item.Request_number }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.Request_number })

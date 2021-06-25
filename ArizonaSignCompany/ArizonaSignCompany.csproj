@@ -194,6 +194,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\requestColumnName.cs" />
+    <Compile Include="Models\RequestX.cs" />
+    <Compile Include="Models\SortDescriptor.cs" />
     <Compile Include="Models\_Lift_Schedule.cs" />
     <Compile Include="Models\LiftRequestApiResponse.cs" />
     <Compile Include="Models\RequestType.cs" />
@@ -239,6 +242,41 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="css\components.css" />
+    <Content Include="css\icons.css" />
+    <Content Include="css\responsee.css" />
+    <Content Include="css\template-style.css" />
+    <Content Include="font\mfglabsiconset-webfont.svg" />
+    <Content Include="font\Simple-Line-Icons.svg" />
+    <Content Include="img\DownTownSign.jpg" />
+    <Content Include="img\header.jpg" />
+    <Content Include="img\img-01.jpg" />
+    <Content Include="img\img-02.jpg" />
+    <Content Include="img\img-12.jpg" />
+    <Content Include="img\logo-dark.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\portfolio\thumb-01.jpg" />
+    <Content Include="img\portfolio\thumb-02.jpg" />
+    <Content Include="img\portfolio\thumb-03.jpg" />
+    <Content Include="img\portfolio\thumb-04.jpg" />
+    <Content Include="img\portfolio\thumb-05.jpg" />
+    <Content Include="img\portfolio\thumb-06.jpg" />
+    <Content Include="img\portfolio\thumb-07.jpg" />
+    <Content Include="img\portfolio\thumb-08.jpg" />
+    <Content Include="img\portfolio\thumb-09.jpg" />
+    <Content Include="img\portfolio\thumb-10.jpg" />
+    <Content Include="img\portfolio\thumb-11.jpg" />
+    <Content Include="img\portfolio\thumb-12.jpg" />
+    <Content Include="img\portfolio\thumb-13.jpg" />
+    <Content Include="img\portfolio\thumb-14.jpg" />
+    <Content Include="img\premium-features.png" />
+    <Content Include="img\testimonials-04.png" />
+    <Content Include="img\testimonials-05.png" />
+    <Content Include="img\testimonials-06.png" />
+    <Content Include="js\jquery-1.8.3.min.js" />
+    <Content Include="js\jquery-ui.min.js" />
+    <Content Include="js\responsee.js" />
+    <Content Include="js\template-scripts.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -291,7 +329,17 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="font\mfglabsiconset-webfont.eot" />
+    <Content Include="font\mfglabsiconset-webfont.ttf" />
+    <Content Include="font\mfglabsiconset-webfont.woff" />
+    <Content Include="font\Simple-Line-Icons.eot" />
+    <Content Include="font\Simple-Line-Icons.ttf" />
+    <Content Include="font\Simple-Line-Icons.woff" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="owl-carousel\owl.carousel.css" />
+    <Content Include="owl-carousel\owl.carousel.js" />
+    <Content Include="owl-carousel\owl.theme.css" />
+    <Content Include="owl-carousel\owl.video.play.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Calendar.js" />
@@ -331,12 +379,6 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Quote\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Quote\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Quote\Manage\Index.cshtml" />
-    <Content Include="Views\Quote\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Quote\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Quote\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\UserProfiles\Create.cshtml" />
@@ -344,7 +386,6 @@
     <Content Include="Views\UserProfiles\Details.cshtml" />
     <Content Include="Views\UserProfiles\Edit.cshtml" />
     <Content Include="Views\UserProfiles\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\Home\Index - Copy.cshtml" />
     <Content Include="Views\RepairRequests\Create.cshtml" />
     <Content Include="Views\RepairRequests\Delete.cshtml" />
@@ -382,7 +423,13 @@
     <Content Include="Views\Home\Calendar.cshtml" />
     <Content Include="Views\LiftSchedule\Details.cshtml" />
     <Content Include="Views\Home\ConfirmationPage.cshtml" />
-    <Content Include="Views\LiftSchedule\LiftScheduleCalendar.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

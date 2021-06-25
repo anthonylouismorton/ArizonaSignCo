@@ -11,8 +11,16 @@
     
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.first_name)
+            Confirmation Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Request_number)
+        </dd>
+        <dt>
+            First Name
         </dt>
 
         <dd>
@@ -20,7 +28,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.last_name)
+            Last Name
         </dt>
 
         <dd>
@@ -77,6 +85,7 @@
 
     </dl>
 </div>
+<button class="unprintable" onclick="window.print()">Print this page</button>
 <p>
     @Html.ActionLink("Back to Home", "Index","Home")
 </p>

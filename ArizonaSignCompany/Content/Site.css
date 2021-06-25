@@ -39,5 +39,25 @@ div#bs-example-navbar-collapse-1 {
 }
 .navbar-default{
 }
-    
-
+body {
+    padding-top: 4em;
+}
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    object-fit: contain;
+    height: 100%;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    left: 50%;
+    transform: translateX(-50%);
+}
+@media print{
+    a[href]:after{
+        content: none;
+    }
+    .unprintable{
+        display: none;
+    }
+}
+.dashboardlist{
+    padding-top: 2em;
+}

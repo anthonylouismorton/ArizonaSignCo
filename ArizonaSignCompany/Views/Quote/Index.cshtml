@@ -1,27 +1,44 @@
-﻿@model IEnumerable<ArizonaSignCompany.Models.Request>
+﻿@using ArizonaSignCompany.Models;
+@model IEnumerable<ArizonaSignCompany.Models.Request>
 
 @{
+    var tableName = "quote";
+    var sortColumn = ViewBag.sortColumn;
+    var sortDirection = ViewBag.sortDirection ?? false;
+    var sortIconClass = "glyphicon-sort-by-attributes";
+    if (ViewBag.sortDirection == true)
+    {
+        sortIconClass = "glyphicon-sort-by-attributes-alt";
+    }
     ViewBag.Title = "Index";
+    string newSortDirection = (!sortDirection).ToString();
 }
+
 
 <h2>Sign Manufacturing</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            First Name
+            <a href="javascript: applysort('@tableName','@requestColumnName.firstname', '@newSortDirection')">
+                First Name
+                <span class="glyphicon @(sortColumn == requestColumnName.firstname ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
+            </a>
         </th>
         <th>
-            Last Name
+            <a href="javascript: applysort('@tableName','@requestColumnName.lastname', '@newSortDirection')">
+                Last Name
+                <span class="glyphicon @(sortColumn == requestColumnName.lastname ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
+                </a>
         </th>
         <th>
             Description
         </th>
         <th>
-            Contact
+            <a href="javascript: applysort('@tableName','@requestColumnName.contact', '@newSortDirection')">
+                Contact
+                <span class="glyphicon @(sortColumn == requestColumnName.contact ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
+                </a>
         </th>
         <th>
             Attachment
@@ -30,9 +47,12 @@
             Location
         </th>
         <th>
-            Company
+            <a href="javascript: applysort('@tableName','@requestColumnName.company', '@newSortDirection')">
+                Company
+                <span class="glyphicon @(sortColumn == requestColumnName.company ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
+                </a>
         </th>
-        <th></th>
+        
     </tr>
 
 @foreach (var item in Model) {

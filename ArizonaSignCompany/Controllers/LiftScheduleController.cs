@@ -80,7 +80,7 @@ namespace ArizonaSignCompany.Controllers
                 };
                 db.Lift_Schedule.Add(scheduleLift);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Create", "LiftSchedule");
             }
             return View(schedule);
         }

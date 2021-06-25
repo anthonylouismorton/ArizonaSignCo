@@ -19,10 +19,12 @@ namespace ArizonaSignCompany.Controllers
         // GET: Installation
         [ChildActionOnly]
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(requestColumnName? sortColumn, bool? sortDirection)
         {
+            ViewBag.sortColumn = sortColumn;
+            ViewBag.sortDirection = sortDirection;
             var requestType = RequestType.installation.ToString();
-            return PartialView(db.Requests.Where(r => r.Type == requestType));
+            return PartialView(db.Requests.Where(r => r.Type == requestType).sortByColumn(sortColumn, sortDirection));
         }
 
         // GET: Installation/Details/5
@@ -66,6 +68,8 @@ namespace ArizonaSignCompany.Controllers
                     last_name = installation.last_name,
                     company = installation.company,
                     contact = installation.contact,
+                    description = installation.description,
+                    location = installation.location,
                     Type = RequestType.installation.ToString()
                 };
                 if (upload != null && upload.ContentLength > 0)
@@ -77,15 +81,16 @@ namespace ArizonaSignCompany.Controllers
                     installationRequest.attachment = filename;
                 }
                 //need to redirect to page and not yellow screen of death
-                /*else if(upload == null || upload.ContentLength == 0)
+                else if(upload == null || upload.ContentLength == 0)
                 {
                     isValid = false;
-                    ModelState.AddModelError(null, "Please attach an installation package");
+                    ModelState.AddModelError("CustomError", "Please attach an installation package");
+
                     return View(installation);
-                }*/
+                }
                     db.Requests.Add(installationRequest);
                     db.SaveChanges(); 
-                    return RedirectToAction("ConfirmationPage","Home");
+                    return RedirectToAction("ConfirmationPage","Home",new {id = installationRequest.Request_number });
             }
 
             return View(installation);

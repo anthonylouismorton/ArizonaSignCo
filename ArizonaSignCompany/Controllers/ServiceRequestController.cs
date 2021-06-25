@@ -56,38 +56,34 @@ namespace ArizonaSignCompany.Controllers
         {
 
                 var isValid = ModelState.IsValid;
-                if (upload == null || upload.ContentLength == 0)
+            if (isValid)
+            {
+                var serviceRequest = new Request
                 {
-                    isValid = false;
-                    ModelState.AddModelError(null, "Invalid file type. Please select another file.");
+                    first_name = service.first_name,
+                    last_name = service.last_name,
+                    description = service.description,
+                    contact = service.contact,
+                    location = service.location,
+                    company = service.company,
+                    Request_number = service.Request_number,
+                    Type = RequestType.service.ToString()
 
+
+
+                };
+                if(upload != null && upload.ContentLength > 0)
+                { 
+                var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
+                var filepath = Server.MapPath("~/UserUploads");
+                var folderpath = Path.Combine(filepath, filename);
+                upload.SaveAs(folderpath);
+                serviceRequest.attachment = filename;
                 }
-                if (isValid)
-                {
-                    var serviceRequest = new Request
-                    {
-                        first_name = service.first_name,
-                        last_name = service.last_name,
-                        description = service.description,
-                        contact = service.contact,
-                        location = service.location,
-                        company = service.company,
-                        Request_number = service.Request_number,
-                        Type = RequestType.service.ToString()
-
-
-
-                    };
-
-                        var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
-                        var filepath = Server.MapPath("~/UserUploads");
-                        var folderpath = Path.Combine(filepath, filename);
-                        upload.SaveAs(folderpath);
-                        serviceRequest.attachment = filename;
                         db.Requests.Add(serviceRequest);
                         db.SaveChanges();
-                        return RedirectToAction("ConfirmationPage", "Home");
-                }
+                        return RedirectToAction("ConfirmationPage", "Home", new { id = serviceRequest.Request_number });
+            }
 
                 return View(service);
            

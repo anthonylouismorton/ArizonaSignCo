@@ -12,8 +12,9 @@ namespace ArizonaSignCompany.Controllers
     {
         private ArizonaSignCompanyEntities db = new ArizonaSignCompanyEntities();
         // GET: Dashboard
-        public ActionResult Index()
+        public ActionResult Index(SortDescriptor sort)
         {
+            ViewBag.sortDescriptor = sort;
             return View();
         }
 

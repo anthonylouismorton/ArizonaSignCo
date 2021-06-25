@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Log in";
 }
-
-<h2>Login</h2>
+<br />
+<h1>Account Login</h1>
 <div style="color:red;">
     Login account is required to schedule lifts.
 </div>
@@ -14,7 +14,7 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <hr />
+                <br />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -43,9 +43,9 @@
                         <input type="submit" value="Log in" class="btn btn-default" />
                     </div>
                 </div>
-                <p>
+                <h2>
                     @Html.ActionLink("Register as a new user", "Register")
-                </p>
+                </h2>
                 @* Enable this once you have account confirmation enabled for password reset functionality
                     <p>
                         @Html.ActionLink("Forgot your password?", "ForgotPassword")

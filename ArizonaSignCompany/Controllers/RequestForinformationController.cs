@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -54,11 +55,6 @@ namespace ArizonaSignCompany.Controllers
         {
 
             var isValid = ModelState.IsValid;
-            if (upload == null || upload.ContentLength == 0)
-            {
-                isValid = false;
-                ModelState.AddModelError(null, "Please upload a valid file");
-            }
             if (isValid)
             {
 
@@ -77,9 +73,17 @@ namespace ArizonaSignCompany.Controllers
 
 
                 };
+                if (upload != null && upload.ContentLength > 0)
+                {
+                    var filename = DateTime.Now.ToString("yyyyMMdd-HHmmss-fffff") + "_" + upload.FileName;
+                    var filepath = Server.MapPath("~/UserUploads");
+                    var folderpath = Path.Combine(filepath, filename);
+                    upload.SaveAs(folderpath);
+                    informationRequest.attachment = filename;
+                }
                 db.Requests.Add(informationRequest);
                 db.SaveChanges();
-                return RedirectToAction("ConfirmationPage", "Home");
+                return RedirectToAction("ConfirmationPage", "Home", new { id = informationRequest.Request_number });
             }
 
             return View(information);

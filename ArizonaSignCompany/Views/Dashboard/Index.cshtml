@@ -1,41 +1,70 @@
-﻿@{
+﻿@model ArizonaSignCompany.Models.SortDescriptor
+@{
     ViewBag.Title = "Dashboard";
     ViewBag.HasCalendar = true;
 }
 
-
-    
-    <h3>@ViewBag.Message</h3>
-
-    
-
-<div class="approvals">
-    @Html.Action("AccountApproval","Dashboard")
+<div class="approvals dashboardlist">
+    <a id="approvalsTable"></a>
+    @Html.Action("AccountApproval", "Dashboard")
 </div>
 
-<div class="installations">
-    @Html.Action("Index", "Installation")
+<div class="installations dashboardlist">
+    <a id="installationTable"></a>
+    @Html.Action("Index", "Installation", new { sortColumn = ViewBag.sortDescriptor.installationColumn, sortDirection = ViewBag.sortDescriptor.installationSort })
 </div>
 
-<div class="liftschedule">
-    @Html.Action("Index", "LiftSchedule")
+<div class="liftschedule dashboardlist">
+    <a id="liftscheduleTable"></a>
+    @Html.Action("Index", "LiftSchedule", new { sortColumn = ViewBag.sortDescriptor.liftColumn, sortDirection = ViewBag.sortDescriptor.liftSort })
 </div>
 
-<div class="quote">
-    @Html.Action("Index", "Quote")
+<div class="quote dashboardlist">
+    <a id="quoteTable"></a>
+    @Html.Action("Index", "Quote", new { sortColumn = ViewBag.sortDescriptor.quoteColumn, sortDirection = ViewBag.sortDescriptor.quoteSort })
 </div>
 
-<div class="repairRequest">
-    @Html.Action("Index", "RepairRequests")
+<div class="repairRequest dashboardlist">
+    <a id="repairRequestTable"></a>
+    @Html.Action("Index", "RepairRequests", new { sortColumn = ViewBag.sortDescriptor.repairColumn, sortDirection = ViewBag.sortDescriptor.repairSort })
 </div>
 
-<div class="serviceRequest">
-    @Html.Action("Index", "ServiceRequest")
+<div class="serviceRequest dashboardlist">
+    <a id="serviceRequestTable"></a>
+    @Html.Action("Index", "ServiceRequest", new { sortColumn = ViewBag.sortDescriptor.serviceColumn, sortDirection = ViewBag.sortDescriptor.serviceSort })
 </div>
 
-<div class="requestForInformation">
-    @Html.Action("Index", "RequestForInformation")
+<div class="requestForInformation dashboardlist">
+    <a id="rfiRequestTable"></a>
+    @Html.Action("Index", "RequestForInformation", new { sortColumn = ViewBag.sortDescriptor.rfiColumn, sortDirection = ViewBag.sortDescriptor.rfiSort })
 </div>
-<div class="calendar">
+<div class="calendar dashboardlist">
+    <a id="calendarTable"></a>
     @Html.Action("Calendar", "Home")
 </div>
+@using (Html.BeginForm("Index", "Dashboard", FormMethod.Get, new { style = "display: none", id = "sortForm" }))
+{
+    @Html.HiddenFor(m => m.quoteColumn, new { id = "quoteTableSortColumn" })
+    @Html.HiddenFor(m => m.quoteSort, new { id = "quoteTableSortDirection" })
+    @Html.HiddenFor(m => m.installationColumn, new { id = "installationTableSortColumn" })
+    @Html.HiddenFor(m => m.installationSort, new { id = "installationTableSortDirection" })
+    @Html.HiddenFor(m => m.repairColumn, new { id = "repairTableSortColumn" })
+    @Html.HiddenFor(m => m.repairSort, new { id = "repairTableSortDirection" })
+}
+@section scripts
+    {
+    <script>
+        function applysort(tableName, sortColumn, sortDirection) {
+            let sortColumnId = tableName + "TableSortColumn"
+            let sortDirectionId = tableName + "TableSortDirection"
+            let sortColumnInput = document.getElementById(sortColumnId)
+            let sortDirectionInput = document.getElementById(sortDirectionId)
+            sortColumnInput.value = sortColumn
+            sortDirectionInput.value = sortDirection
+            let sortForm = document.getElementById("sortForm")
+            let UrlWithoutFragment = sortForm.action.split("#")[0]
+            sortForm.action = UrlWithoutFragment + "#" + tableName + "Table"
+            sortForm.submit()
+        }
+    </script>
+}
