@@ -19,10 +19,13 @@ namespace ArizonaSignCompany.Controllers
         // GET: ServiceRequest
         [ChildActionOnly]
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(requestColumnName? sortColumn, bool? sortDirection)
         {
+            ViewBag.sortColumn = sortColumn;
+            ViewBag.sortDirection = sortDirection;
             var requestType = RequestType.service.ToString();
-            return PartialView(db.Requests.Where(r => r.Type == requestType));
+            var dbRequests = db.Requests.Where(r => r.Type == requestType).sortByColumn(sortColumn, sortDirection);
+            return PartialView(dbRequests);
         }
 
         // GET: ServiceRequest/Details/5
@@ -55,7 +58,7 @@ namespace ArizonaSignCompany.Controllers
         public async Task<ActionResult> Create(ServiceRequestViewModel service, HttpPostedFileBase upload)
         {
 
-                var isValid = ModelState.IsValid;
+            var isValid = ModelState.IsValid;
             if (isValid)
             {
                 var serviceRequest = new Request

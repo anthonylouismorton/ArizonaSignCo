@@ -37,10 +37,9 @@ div#bs-example-navbar-collapse-1 {
     left: 0;
     min-height: 300px;
 }
-.navbar-default{
-}
+
 body {
-    padding-top: 4em;
+    padding-top: 5em;
 }
 .carousel-inner > .item > img, .carousel-inner > .item > a > img {
     object-fit: contain;
@@ -60,4 +59,61 @@ body {
 }
 .dashboardlist{
     padding-top: 2em;
+}
+.dl-horizontal {
+    font-family: "Playfair Display";
+    margin:auto;
+}
+.information-display {
+    padding-bottom: 1em;
+    font-size: medium;
+}
+.dashboard-headers {
+    font-size: x-large;
+    text-align: center;
+    font-family: "Playfair Display";
+}
+.customer-information{
+    font-size: large;
+}
+.form-group {
+    font-family: "Playfair Display";
+}
+.btn btn-default {
+    font-family: "Playfair Display";
+}
+#upload {
+    font-family: "Playfair Display";
+}
+
+.create-page-banner {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-width: 100%;
+    max-height: 500px;
+    margin-top: -65px;    
+}
+nav.background-transparent.background-transparent-hightlight.full-width.fixed {
+    background: rgba(255, 255, 255, 0.7);
+}
+.invoice-header {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .invoice-header h1 {
+        padding: 0;
+        margin: 0;
+    }
+    .clickable{
+        cursor: pointer;
+    }
+table tr.clickable:hover {
+    background-color: lightgray;
 }

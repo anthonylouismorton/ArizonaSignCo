@@ -14,7 +14,6 @@
     string newSortDirection = (!sortDirection).ToString();
 }
 
-
 <h2>Sign Manufacturing</h2>
 
 <table class="table">
@@ -29,19 +28,19 @@
             <a href="javascript: applysort('@tableName','@requestColumnName.lastname', '@newSortDirection')">
                 Last Name
                 <span class="glyphicon @(sortColumn == requestColumnName.lastname ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
-                </a>
+            </a>
         </th>
         <th>
-            Description
+            Request Number
+        </th>
+        <th>
+            Attachment
         </th>
         <th>
             <a href="javascript: applysort('@tableName','@requestColumnName.contact', '@newSortDirection')">
                 Contact
                 <span class="glyphicon @(sortColumn == requestColumnName.contact ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
-                </a>
-        </th>
-        <th>
-            Attachment
+            </a>
         </th>
         <th>
             Location
@@ -50,9 +49,12 @@
             <a href="javascript: applysort('@tableName','@requestColumnName.company', '@newSortDirection')">
                 Company
                 <span class="glyphicon @(sortColumn == requestColumnName.company ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
-                </a>
+            </a>
         </th>
-        
+        <th>
+            Click Details for Comments
+        </th>
+
     </tr>
 
 @foreach (var item in Model) {
@@ -64,13 +66,13 @@
         @Html.DisplayFor(modelItem => item.last_name)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.contact)
+        @Html.DisplayFor(modelItem => item.Request_number)
     </td>
     <td>
         <a href="~/UserUploads/@(item.attachment)" target="_blank">@item.attachment</a>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.contact)
     </td>
     <td>
         @Html.DisplayFor(modelItem => item.location)

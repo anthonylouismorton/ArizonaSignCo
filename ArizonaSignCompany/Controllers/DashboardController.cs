@@ -19,10 +19,11 @@ namespace ArizonaSignCompany.Controllers
         }
 
         [ChildActionOnly]
-        public ActionResult AccountApproval()
+        public ActionResult AccountApproval(customer_informationColumnName? sortColumn, bool? sortDirection)
         {
-            var approvals = db.Customer_Information.Where(c => !c.isApproved);
-
+            ViewBag.sortColumn = sortColumn;
+            ViewBag.sortDirection = sortDirection;
+            var approvals = db.Customer_Information.Where(c => !c.isApproved).sortByColumn(sortColumn, sortDirection);
             return PartialView(approvals.ToList());
         }
 
@@ -44,6 +45,13 @@ namespace ArizonaSignCompany.Controllers
             db.Entry(customer).State = System.Data.Entity.EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public ActionResult Archive(requestColumnName? sortColumn, bool? sortDirection)
+        {
+            ViewBag.sortColumn = sortColumn;
+            ViewBag.sortDirection = sortDirection;
+            var dbRequests = db.Requests.sortByColumn(sortColumn, sortDirection);
+            return View(dbRequests);
         }
 
         protected override void Dispose(bool disposing)

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ArizonaSignCompany.Models.Invoice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Created Invoices</h2>
+
+
+<p>
+    @Html.ActionLink("Create New Invoice", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.sub_total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.total)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer_Information.LastName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.sub_total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.total)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer_Information.LastName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Invoice_ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Invoice_ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Invoice_ID }) |
+            @Html.ActionLink("Create Invoice", "Create","Invoices", new { id = item.Customer_ID},null)
+        </td>
+    </tr>
+}
+
+</table>

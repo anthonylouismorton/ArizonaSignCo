@@ -12,9 +12,6 @@
             Date
         </th>
         <th>
-            Location
-        </th>
-        <th>
             Start Time
         </th>
         <th>
@@ -24,7 +21,7 @@
             Contact
         </th>
         <th>
-            Last Name
+            Location
         </th>
         <th></th>
     </tr>
@@ -33,9 +30,6 @@
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.Lift_Date)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Lift_Location)
     </td>
     <td>
         @((DateTime.Today+item.start_time).ToString("h:mm tt"))
@@ -47,7 +41,7 @@
         @Html.DisplayFor(modelItem => item.Lift_Contact)
     </td>
     <td>
-        @Html.DisplayFor(modelItem => item.Customer_Information.LastName)
+        @Html.DisplayFor(modelItem => item.Lift_Location)
     </td>
     <td>
         @Html.ActionLink("Create", "Create", new { id = item.lift_Id }) |

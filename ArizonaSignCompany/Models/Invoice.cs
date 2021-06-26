@@ -12,18 +12,20 @@ namespace ArizonaSignCompany.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Service_Request
+    public partial class Invoice
     {
-        public Nullable<System.DateTime> Service_Date { get; set; }
-        public string Service_Location { get; set; }
-        public Nullable<System.TimeSpan> Service_Time { get; set; }
-        public string Service_Contact { get; set; }
-        public string Service_Issue { get; set; }
-        public string Customer_ID { get; set; }
-        public Nullable<int> Contact_ID { get; set; }
-        public int Request_ID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Invoice()
+        {
+            this.InvoiceLineItems = new HashSet<InvoiceLineItem>();
+        }
     
-        public virtual LU_Contact_Method LU_Contact_Method { get; set; }
+        public int Invoice_ID { get; set; }
+        public string description { get; set; }
+        public string Customer_ID { get; set; }
+    
         public virtual Customer_Information Customer_Information { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<InvoiceLineItem> InvoiceLineItems { get; set; }
     }
 }

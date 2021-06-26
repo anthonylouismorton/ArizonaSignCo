@@ -2,7 +2,6 @@
 @model IEnumerable<ArizonaSignCompany.Models.Request>
 
 @{
-    var tableName = "rfi";
     var sortColumn = ViewBag.sortColumn;
     var sortDirection = ViewBag.sortDirection ?? false;
     var sortIconClass = "glyphicon-sort-by-attributes";
@@ -14,39 +13,44 @@
     string newSortDirection = (!sortDirection).ToString();
 }
 
-<h2>RFIs</h2>
+<h2>Archive</h2>
 
 <table class="table">
     <tr>
         <th>
-            <a href="javascript: applysort('@tableName','@requestColumnName.firstname', '@newSortDirection')">
+            <a href="@Url.Action("Archive","Dashboard", new {sortColumn = requestColumnName.firstname, sortDirection = newSortDirection})">
                 First Name
                 <span class="glyphicon @(sortColumn == requestColumnName.firstname ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
             </a>
         </th>
+
         <th>
-            <a href="javascript: applysort('@tableName','@requestColumnName.lastname', '@newSortDirection')">
+            <a href="@Url.Action("Archive","Dashboard", new {sortColumn = requestColumnName.lastname, sortDirection = newSortDirection})">
                 Last Name
                 <span class="glyphicon @(sortColumn == requestColumnName.lastname ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
             </a>
         </th>
         <th>
-            Request Number
+            <a href="@Url.Action("Archive","Dashboard", new {sortColumn = requestColumnName.type, sortDirection = newSortDirection})">
+                Type
+                <span class="glyphicon @(sortColumn == requestColumnName.type ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
+            </a>
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.attachment)
         </th>
         <th>
-            Attachment
-        </th>
-        <th>
-            <a href="javascript: applysort('@tableName','@requestColumnName.contact', '@newSortDirection')">
+            <a href="@Url.Action("Archive","Dashboard", new {sortColumn = requestColumnName.contact, sortDirection = newSortDirection})">
                 Contact
                 <span class="glyphicon @(sortColumn == requestColumnName.contact ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
             </a>
         </th>
         <th>
-            Location
+            @Html.DisplayNameFor(model => model.location)
         </th>
         <th>
-            <a href="javascript: applysort('@tableName','@requestColumnName.company', '@newSortDirection')">
+            <a href="@Url.Action("Archive","Dashboard", new {sortColumn = requestColumnName.company, sortDirection = newSortDirection})">
                 Company
                 <span class="glyphicon @(sortColumn == requestColumnName.company ? sortIconClass : "glyphicon-sort")" aria-hidden="true"></span>
             </a>
@@ -66,10 +70,10 @@
                 @Html.DisplayFor(modelItem => item.last_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Request_number)
+                @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
-                <a href="~/UserUploads/@(item.attachment)" target="_blank">@item.attachment</a>
+                @Html.DisplayFor(modelItem => item.attachment)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.contact)
@@ -81,8 +85,6 @@
                 @Html.DisplayFor(modelItem => item.company)
             </td>
             <td>
-                @Html.ActionLink("Create", "Create", new { id = item.Request_number }) |
-                @Html.ActionLink("Edit", "Edit", new { id = item.Request_number }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Request_number }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Request_number })
             </td>
@@ -90,3 +92,6 @@
     }
 
 </table>
+<div>
+    @Html.ActionLink("Back to Dashboard", "Index", "Dashboard")
+</div>

@@ -3,20 +3,16 @@
     ViewBag.Title = "Dashboard";
     ViewBag.HasCalendar = true;
 }
-
+@Html.ActionLink("Archive", "Archive", "Dashboard")
+@Html.ActionLink("Invoicing", "Index", "Customer_Information")
 <div class="approvals dashboardlist">
     <a id="approvalsTable"></a>
-    @Html.Action("AccountApproval", "Dashboard")
+    @Html.Action("AccountApproval", "Dashboard", new { sortColumn = ViewBag.sortDescriptor.customer_informationColumn, sortDirection = ViewBag.sortDescriptor.customer_informationSort })
 </div>
 
 <div class="installations dashboardlist">
     <a id="installationTable"></a>
     @Html.Action("Index", "Installation", new { sortColumn = ViewBag.sortDescriptor.installationColumn, sortDirection = ViewBag.sortDescriptor.installationSort })
-</div>
-
-<div class="liftschedule dashboardlist">
-    <a id="liftscheduleTable"></a>
-    @Html.Action("Index", "LiftSchedule", new { sortColumn = ViewBag.sortDescriptor.liftColumn, sortDirection = ViewBag.sortDescriptor.liftSort })
 </div>
 
 <div class="quote dashboardlist">
@@ -38,6 +34,12 @@
     <a id="rfiRequestTable"></a>
     @Html.Action("Index", "RequestForInformation", new { sortColumn = ViewBag.sortDescriptor.rfiColumn, sortDirection = ViewBag.sortDescriptor.rfiSort })
 </div>
+
+<div class="liftschedule dashboardlist">
+    <a id="liftscheduleTable"></a>
+    @Html.Action("Index", "LiftSchedule", new { sortColumn = ViewBag.sortDescriptor.liftColumn, sortDirection = ViewBag.sortDescriptor.liftSort })
+</div>
+
 <div class="calendar dashboardlist">
     <a id="calendarTable"></a>
     @Html.Action("Calendar", "Home")
@@ -50,6 +52,12 @@
     @Html.HiddenFor(m => m.installationSort, new { id = "installationTableSortDirection" })
     @Html.HiddenFor(m => m.repairColumn, new { id = "repairTableSortColumn" })
     @Html.HiddenFor(m => m.repairSort, new { id = "repairTableSortDirection" })
+    @Html.HiddenFor(m => m.rfiColumn, new { id = "rfiTableSortColumn" })
+    @Html.HiddenFor(m => m.rfiSort, new { id = "rfiTableSortDirection" })
+    @Html.HiddenFor(m => m.serviceColumn, new { id = "serviceTableSortColumn" })
+    @Html.HiddenFor(m => m.serviceSort, new { id = "serviceTableSortDirection" })
+    @Html.HiddenFor(m => m.customer_informationColumn, new { id = "accountTableSortColumn" })
+    @Html.HiddenFor(m => m.customer_informationSort, new { id = "accountTableSortDirection" })
 }
 @section scripts
     {

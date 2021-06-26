@@ -10,6 +10,13 @@ namespace ArizonaSignCompany.Models
         firstname,
         lastname,
         contact,
+        company,
+        type
+    }
+    public enum customer_informationColumnName
+    {
+        firstname,
+        lastname,
         company
     }
 }

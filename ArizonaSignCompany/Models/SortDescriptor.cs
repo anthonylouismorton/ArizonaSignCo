@@ -29,5 +29,9 @@ namespace ArizonaSignCompany.Models
         public requestColumnName? liftColumn { get; set; }
 
         public bool? liftSort { get; set; }
+
+        public customer_informationColumnName? customer_informationColumn { get; set; }
+
+        public bool? customer_informationSort { get; set; }
     }
 }

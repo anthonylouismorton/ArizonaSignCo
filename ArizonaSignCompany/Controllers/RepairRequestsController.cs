@@ -131,7 +131,7 @@ namespace ArizonaSignCompany.Controllers
             {
                 return HttpNotFound();
             }
-            return PartialView(request);
+            return View(request);
         }
 
         // POST: RepairRequests/Delete/5

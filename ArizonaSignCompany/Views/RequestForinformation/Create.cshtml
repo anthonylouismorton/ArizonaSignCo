@@ -4,8 +4,8 @@
     ViewBag.Title = "Create";
 }
 
-<h1 class="text-center text-l-size-25">Have a Question?</h1>
-<h2>We have answers. Submit your question using the form below and we will respond within 2 business days</h2>
+<div class="dashboard-headers">Have a Question?</div>
+<h2 class="heading text-center margin-top-15 ">We have answers. Submit your question using the form below and we will respond within 2 business days</h2>
 
 
 @using (Html.BeginForm("Create", "RequestForInformation", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -65,7 +65,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.description, 10, 40, htmlAttributes: new { @class = "form-control" })
+                @Html.TextAreaFor(model => model.description, 15, 40, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.description, "", new { @class = "text-danger" })
             </div>
         </div>

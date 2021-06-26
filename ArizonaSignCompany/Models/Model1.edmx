@@ -21,6 +21,24 @@
           <Property Name="Customer_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="isApproved" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_ID" />
+          </Key>
+          <Property Name="Invoice_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" />
+          <Property Name="Customer_ID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="InvoiceLineItem">
+          <Key>
+            <PropertyRef Name="LineItem_ID" />
+          </Key>
+          <Property Name="LineItem_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="cost" Type="decimal" Precision="9" Scale="2" Nullable="false" />
+          <Property Name="Invoice_ID" Type="int" Nullable="false" />
+          <Property Name="taxPercent" Type="decimal" Precision="4" Scale="3" />
+        </EntityType>
         <EntityType Name="Lift_Schedule">
           <Key>
             <PropertyRef Name="lift_Id" />
@@ -32,13 +50,6 @@
           <Property Name="lift_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="start_time" Type="time" Precision="7" Nullable="false" />
           <Property Name="end_time" Type="time" Precision="7" Nullable="false" />
-        </EntityType>
-        <EntityType Name="LU_Contact_Method">
-          <Key>
-            <PropertyRef Name="Contact_ID" />
-          </Key>
-          <Property Name="Contact_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Contact_Type" Type="varchar" MaxLength="256" />
         </EntityType>
         <EntityType Name="Request">
           <Key>
@@ -54,19 +65,30 @@
           <Property Name="location" Type="nvarchar" MaxLength="500" />
           <Property Name="company" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Service_Request">
-          <Key>
-            <PropertyRef Name="Request_ID" />
-          </Key>
-          <Property Name="Service_Date" Type="date" />
-          <Property Name="Service_Location" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Service_Time" Type="time" Precision="7" />
-          <Property Name="Service_Contact" Type="varchar" MaxLength="200" Nullable="false" />
-          <Property Name="Service_Issue" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="Customer_ID" Type="nvarchar" MaxLength="128" />
-          <Property Name="Contact_ID" Type="int" />
-          <Property Name="Request_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
+        <Association Name="FK__Invoice__Custome__5CD6CB2B">
+          <End Role="Customer_Information" Type="Self.Customer_Information" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Information">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InvoiceLi__Invoi__5FB337D6">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceLineItem" Type="Self.InvoiceLineItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Invoice_ID" />
+            </Principal>
+            <Dependent Role="InvoiceLineItem">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Lift_Sche__Custo__4222D4EF">
           <End Role="Customer_Information" Type="Self.Customer_Information" Multiplicity="1" />
           <End Role="Lift_Schedule" Type="Self.Lift_Schedule" Multiplicity="*" />
@@ -79,47 +101,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Service_R__Conta__45F365D3">
-          <End Role="LU_Contact_Method" Type="Self.LU_Contact_Method" Multiplicity="0..1" />
-          <End Role="Service_Request" Type="Self.Service_Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LU_Contact_Method">
-              <PropertyRef Name="Contact_ID" />
-            </Principal>
-            <Dependent Role="Service_Request">
-              <PropertyRef Name="Contact_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__Service_R__Custo__4316F928">
-          <End Role="Customer_Information" Type="Self.Customer_Information" Multiplicity="0..1" />
-          <End Role="Service_Request" Type="Self.Service_Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer_Information">
-              <PropertyRef Name="Customer_ID" />
-            </Principal>
-            <Dependent Role="Service_Request">
-              <PropertyRef Name="Customer_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ArizonaSignCompanyModelStoreContainer">
           <EntitySet Name="Customer_Information" EntityType="Self.Customer_Information" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceLineItem" EntityType="Self.InvoiceLineItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Lift_Schedule" EntityType="Self.Lift_Schedule" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="LU_Contact_Method" EntityType="Self.LU_Contact_Method" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Request" EntityType="Self.Request" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Service_Request" EntityType="Self.Service_Request" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Invoice__Custome__5CD6CB2B" Association="Self.FK__Invoice__Custome__5CD6CB2B">
+            <End Role="Customer_Information" EntitySet="Customer_Information" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InvoiceLi__Invoi__5FB337D6" Association="Self.FK__InvoiceLi__Invoi__5FB337D6">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceLineItem" EntitySet="InvoiceLineItem" />
+          </AssociationSet>
           <AssociationSet Name="FK__Lift_Sche__Custo__4222D4EF" Association="Self.FK__Lift_Sche__Custo__4222D4EF">
             <End Role="Customer_Information" EntitySet="Customer_Information" />
             <End Role="Lift_Schedule" EntitySet="Lift_Schedule" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Service_R__Conta__45F365D3" Association="Self.FK__Service_R__Conta__45F365D3">
-            <End Role="LU_Contact_Method" EntitySet="LU_Contact_Method" />
-            <End Role="Service_Request" EntitySet="Service_Request" />
-          </AssociationSet>
-          <AssociationSet Name="FK__Service_R__Custo__4316F928" Association="Self.FK__Service_R__Custo__4316F928">
-            <End Role="Customer_Information" EntitySet="Customer_Information" />
-            <End Role="Service_Request" EntitySet="Service_Request" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -127,59 +125,24 @@
     <edmx:ConceptualModels>
       <Schema Namespace="ArizonaSignCompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="ArizonaSignCompanyEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="LU_Contact_Method" EntityType="ArizonaSignCompanyModel.LU_Contact_Method" />
-          <EntitySet Name="Service_Request" EntityType="ArizonaSignCompanyModel.Service_Request" />
-          <AssociationSet Name="FK__Service_R__Conta__45F365D3" Association="ArizonaSignCompanyModel.FK__Service_R__Conta__45F365D3">
-            <End Role="LU_Contact_Method" EntitySet="LU_Contact_Method" />
-            <End Role="Service_Request" EntitySet="Service_Request" />
-          </AssociationSet>
           <EntitySet Name="Customer_Information" EntityType="ArizonaSignCompanyModel.Customer_Information" />
-          <AssociationSet Name="FK__Service_R__Custo__4316F928" Association="ArizonaSignCompanyModel.FK__Service_R__Custo__4316F928">
-            <End Role="Customer_Information" EntitySet="Customer_Information" />
-            <End Role="Service_Request" EntitySet="Service_Request" />
-          </AssociationSet>
           <EntitySet Name="Requests" EntityType="ArizonaSignCompanyModel.Request" />
           <EntitySet Name="Lift_Schedule" EntityType="ArizonaSignCompanyModel.Lift_Schedule" />
           <AssociationSet Name="FK__Lift_Sche__Custo__4222D4EF" Association="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF">
             <End Role="Customer_Information" EntitySet="Customer_Information" />
             <End Role="Lift_Schedule" EntitySet="Lift_Schedule" />
           </AssociationSet>
+          <EntitySet Name="Invoices" EntityType="ArizonaSignCompanyModel.Invoice" />
+          <EntitySet Name="InvoiceLineItems" EntityType="ArizonaSignCompanyModel.InvoiceLineItem" />
+          <AssociationSet Name="FK__Invoice__Custome__5CD6CB2B" Association="ArizonaSignCompanyModel.FK__Invoice__Custome__5CD6CB2B">
+            <End Role="Customer_Information" EntitySet="Customer_Information" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK__InvoiceLi__Invoi__5FB337D6" Association="ArizonaSignCompanyModel.FK__InvoiceLi__Invoi__5FB337D6">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceLineItem" EntitySet="InvoiceLineItems" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="LU_Contact_Method">
-          <Key>
-            <PropertyRef Name="Contact_ID" />
-          </Key>
-          <Property Name="Contact_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Contact_Type" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Service_Request" Relationship="ArizonaSignCompanyModel.FK__Service_R__Conta__45F365D3" FromRole="LU_Contact_Method" ToRole="Service_Request" />
-        </EntityType>
-        <EntityType Name="Service_Request">
-          <Key>
-            <PropertyRef Name="Request_ID" />
-          </Key>
-          <Property Name="Service_Date" Type="DateTime" Precision="0" />
-          <Property Name="Service_Location" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Service_Time" Type="Time" Precision="7" />
-          <Property Name="Service_Contact" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="Service_Issue" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Customer_ID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Contact_ID" Type="Int32" />
-          <Property Name="Request_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="LU_Contact_Method" Relationship="ArizonaSignCompanyModel.FK__Service_R__Conta__45F365D3" FromRole="Service_Request" ToRole="LU_Contact_Method" />
-          <NavigationProperty Name="Customer_Information" Relationship="ArizonaSignCompanyModel.FK__Service_R__Custo__4316F928" FromRole="Service_Request" ToRole="Customer_Information" />
-        </EntityType>
-        <Association Name="FK__Service_R__Conta__45F365D3">
-          <End Type="ArizonaSignCompanyModel.LU_Contact_Method" Role="LU_Contact_Method" Multiplicity="0..1" />
-          <End Type="ArizonaSignCompanyModel.Service_Request" Role="Service_Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LU_Contact_Method">
-              <PropertyRef Name="Contact_ID" />
-            </Principal>
-            <Dependent Role="Service_Request">
-              <PropertyRef Name="Contact_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Customer_Information">
           <Key>
             <PropertyRef Name="Customer_ID" />
@@ -195,21 +158,9 @@
           <Property Name="Email" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
           <Property Name="Customer_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="isApproved" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Service_Request" Relationship="ArizonaSignCompanyModel.FK__Service_R__Custo__4316F928" FromRole="Customer_Information" ToRole="Service_Request" />
           <NavigationProperty Name="Lift_Schedule" Relationship="ArizonaSignCompanyModel.FK__Lift_Sche__Custo__4222D4EF" FromRole="Customer_Information" ToRole="Lift_Schedule" />
+          <NavigationProperty Name="Invoices" Relationship="ArizonaSignCompanyModel.FK__Invoice__Custome__5CD6CB2B" FromRole="Customer_Information" ToRole="Invoice" />
         </EntityType>
-        <Association Name="FK__Service_R__Custo__4316F928">
-          <End Type="ArizonaSignCompanyModel.Customer_Information" Role="Customer_Information" Multiplicity="0..1" />
-          <End Type="ArizonaSignCompanyModel.Service_Request" Role="Service_Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer_Information">
-              <PropertyRef Name="Customer_ID" />
-            </Principal>
-            <Dependent Role="Service_Request">
-              <PropertyRef Name="Customer_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Request">
           <Key>
             <PropertyRef Name="Request_number" />
@@ -249,34 +200,57 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Invoice_ID" />
+          </Key>
+          <Property Name="Invoice_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Customer_ID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer_Information" Relationship="ArizonaSignCompanyModel.FK__Invoice__Custome__5CD6CB2B" FromRole="Invoice" ToRole="Customer_Information" />
+          <NavigationProperty Name="InvoiceLineItems" Relationship="ArizonaSignCompanyModel.FK__InvoiceLi__Invoi__5FB337D6" FromRole="Invoice" ToRole="InvoiceLineItem" />
+        </EntityType>
+        <EntityType Name="InvoiceLineItem">
+          <Key>
+            <PropertyRef Name="LineItem_ID" />
+          </Key>
+          <Property Name="LineItem_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cost" Type="Decimal" Nullable="false" Precision="9" Scale="2" />
+          <Property Name="Invoice_ID" Type="Int32" Nullable="false" />
+          <Property Name="taxPercent" Type="Decimal" Precision="4" Scale="3" />
+          <NavigationProperty Name="Invoice" Relationship="ArizonaSignCompanyModel.FK__InvoiceLi__Invoi__5FB337D6" FromRole="InvoiceLineItem" ToRole="Invoice" />
+        </EntityType>
+        <Association Name="FK__Invoice__Custome__5CD6CB2B">
+          <End Type="ArizonaSignCompanyModel.Customer_Information" Role="Customer_Information" Multiplicity="1" />
+          <End Type="ArizonaSignCompanyModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer_Information">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__InvoiceLi__Invoi__5FB337D6">
+          <End Type="ArizonaSignCompanyModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="ArizonaSignCompanyModel.InvoiceLineItem" Role="InvoiceLineItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="Invoice_ID" />
+            </Principal>
+            <Dependent Role="InvoiceLineItem">
+              <PropertyRef Name="Invoice_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ArizonaSignCompanyModelStoreContainer" CdmEntityContainer="ArizonaSignCompanyEntities">
-          <EntitySetMapping Name="LU_Contact_Method">
-            <EntityTypeMapping TypeName="ArizonaSignCompanyModel.LU_Contact_Method">
-              <MappingFragment StoreEntitySet="LU_Contact_Method">
-                <ScalarProperty Name="Contact_Type" ColumnName="Contact_Type" />
-                <ScalarProperty Name="Contact_ID" ColumnName="Contact_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Service_Request">
-            <EntityTypeMapping TypeName="ArizonaSignCompanyModel.Service_Request">
-              <MappingFragment StoreEntitySet="Service_Request">
-                <ScalarProperty Name="Request_ID" ColumnName="Request_ID" />
-                <ScalarProperty Name="Contact_ID" ColumnName="Contact_ID" />
-                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
-                <ScalarProperty Name="Service_Issue" ColumnName="Service_Issue" />
-                <ScalarProperty Name="Service_Contact" ColumnName="Service_Contact" />
-                <ScalarProperty Name="Service_Time" ColumnName="Service_Time" />
-                <ScalarProperty Name="Service_Location" ColumnName="Service_Location" />
-                <ScalarProperty Name="Service_Date" ColumnName="Service_Date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Customer_Information">
             <EntityTypeMapping TypeName="ArizonaSignCompanyModel.Customer_Information">
               <MappingFragment StoreEntitySet="Customer_Information">
@@ -319,6 +293,26 @@
                 <ScalarProperty Name="Lift_Contact" ColumnName="Lift_Contact" />
                 <ScalarProperty Name="Lift_Location" ColumnName="Lift_Location" />
                 <ScalarProperty Name="Lift_Date" ColumnName="Lift_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="ArizonaSignCompanyModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceLineItems">
+            <EntityTypeMapping TypeName="ArizonaSignCompanyModel.InvoiceLineItem">
+              <MappingFragment StoreEntitySet="InvoiceLineItem">
+                <ScalarProperty Name="taxPercent" ColumnName="taxPercent" />
+                <ScalarProperty Name="Invoice_ID" ColumnName="Invoice_ID" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="LineItem_ID" ColumnName="LineItem_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -31,10 +31,7 @@
             </a>
         </th>
         <th>
-            Type
-        </th>
-        <th>
-            Description
+            Request Number
         </th>
         <th>
             Attachment
@@ -67,10 +64,7 @@
                 @Html.DisplayFor(modelItem => item.last_name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.description)
+                @Html.DisplayFor(modelItem => item.Request_number)
             </td>
             <td>
                 <a href="~/UserUploads/@(item.attachment)" target="_blank">@item.attachment</a>

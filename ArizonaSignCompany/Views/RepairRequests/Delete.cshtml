@@ -4,83 +4,76 @@
     ViewBag.Title = "Delete";
 }
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
+<div class="dashboard-headers">Are you sure you want to delete this?</div>
     
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.first_name)
-        </dt>
+<div class="approval-account-container">
+        <hr />
+        <dl class="dl-horizontal col-lg-6">
+            <dt class="information-display">
+                First Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.first_name)
-        </dd>
+            <dd class="customer-information">
+                @Html.DisplayFor(model => model.first_name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.last_name)
-        </dt>
+            <dt class="information-display">
+                Last Name
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.last_name)
-        </dd>
+            <dd class="customer-information">
+                @Html.DisplayFor(model => model.last_name)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
+            <dt class="information-display">
+                @Html.DisplayNameFor(model => model.description)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Type)
-        </dd>
+            <dd class="customer-information">
+                @Html.DisplayFor(model => model.description)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
+            <dt class="information-display">
+                @Html.DisplayNameFor(model => model.attachment)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.description)
-        </dd>
+            <dd class="customer-information">
+                @Html.DisplayFor(model => model.attachment)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.attachment)
-        </dt>
+            <dt class="information-display">
+                @Html.DisplayNameFor(model => model.contact)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.attachment)
-        </dd>
+            <dd class="customer-information">
+                @Html.DisplayFor(model => model.contact)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.contact)
-        </dt>
+            <dt class="information-display">
+                @Html.DisplayNameFor(model => model.location)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.contact)
-        </dd>
+            <dd class="customer-information">
+                @Html.DisplayFor(model => model.location)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.location)
-        </dt>
+            <dt class="information-display">
+                @Html.DisplayNameFor(model => model.company)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.location)
-        </dd>
+            <dd class="customer-information">
+                @Html.DisplayFor(model => model.company)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.company)
-        </dt>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.company)
-        </dd>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to Dashboard", "Index","Dashboard")
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to Dashboard", "Index", "Dashboard")
+            </div>
+        }
 </div>

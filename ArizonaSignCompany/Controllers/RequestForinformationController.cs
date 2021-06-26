@@ -19,10 +19,13 @@ namespace ArizonaSignCompany.Controllers
         // GET: RequestForinformation
         [ChildActionOnly]
         [Authorize(Roles = "Admin")]
-        public ActionResult Index()
+        public ActionResult Index(requestColumnName? sortColumn, bool? sortDirection)
         {
+            ViewBag.sortColumn = sortColumn;
+            ViewBag.sortDirection = sortDirection;
             var requestType = RequestType.information.ToString();
-            return PartialView(db.Requests.Where(r => r.Type == requestType));
+            var dbRequests = db.Requests.Where(r => r.Type == requestType).sortByColumn(sortColumn, sortDirection);
+            return PartialView(dbRequests);
         }
 
         // GET: RequestForinformation/Details/5

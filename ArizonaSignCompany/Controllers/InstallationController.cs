@@ -24,7 +24,11 @@ namespace ArizonaSignCompany.Controllers
             ViewBag.sortColumn = sortColumn;
             ViewBag.sortDirection = sortDirection;
             var requestType = RequestType.installation.ToString();
-            return PartialView(db.Requests.Where(r => r.Type == requestType).sortByColumn(sortColumn, sortDirection));
+            var cutOffDate = DateTime.Now.AddMonths(-1);
+            IQueryable<Request> Requests = db.Requests
+                .Where(r => r.Type == requestType).OrderByDescending(r => r.Request_number).Take(20)
+                .sortByColumn(sortColumn, sortDirection);
+            return PartialView(Requests);
         }
 
         // GET: Installation/Details/5

@@ -17,8 +17,8 @@ namespace ArizonaSignCompany.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Customer_Information()
         {
-            this.Service_Request = new HashSet<Service_Request>();
             this.Lift_Schedule = new HashSet<Lift_Schedule>();
+            this.Invoices = new HashSet<Invoice>();
         }
     
         public string LastName { get; set; }
@@ -34,8 +34,8 @@ namespace ArizonaSignCompany.Models
         public bool isApproved { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Service_Request> Service_Request { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Lift_Schedule> Lift_Schedule { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Invoice> Invoices { get; set; }
     }
 }
